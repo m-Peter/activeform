@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+peters:
+  twitter_name: twitter_peter
+  github_name: github_peter
+  user: peter

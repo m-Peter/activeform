@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+peter:
+  name: m-peter
+  age: 23
+  gender: 0
