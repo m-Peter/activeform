@@ -7,11 +7,11 @@ require "active_form/version"
 Gem::Specification.new do |s|
   s.name        = "active_form"
   s.version     = ActiveForm::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ActiveForm."
-  s.description = "TODO: Description of ActiveForm."
+  s.authors     = ["Petros Markou"]
+  s.email       = ["markoupetr@gmail.com"]
+  s.homepage    = "https://github.com/m-Peter/activeform"
+  s.summary     = "Create nested forms with ease."
+  s.description = "An alternative layer to accepts_nested_attributes_for by using Form Models."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
