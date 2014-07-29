@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ruby:
+  content: Ruby Programming Language
+  question: one
+
+cs:
+  content: CSharp Programming Language
+  question: one

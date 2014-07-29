@@ -1,0 +1,15 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= f.label :content, "Question" %><br>
+    <%= link_to_remove_fields "remove", f %><br />
+    <%= f.text_area :content, :cols => 30, :rows => 2 %>
+  </div>
+
+  <h2>Answers</h2>
+  <%= f.fields_for :answers do |answer_fields| %>
+    <%= render "answers", :f => answer_fields %>
+  <% end %>
+
+  <%= link_to_add_fields "Add Answer", f, :answers %>
+  
+</div>
