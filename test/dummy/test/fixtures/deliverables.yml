@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+leaves:
+  description: Yard will have no leaves
+  task: rake 
+
+fence:
+  description: Yards fence will be fresh painted
+  task: paint
