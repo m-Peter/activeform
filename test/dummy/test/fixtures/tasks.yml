@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+rake:
+  name: rake the leaves
+  project: yard
+
+paint:
+  name: paint the fence
+  project: yard
+
+clean:
+  name: clean the gutters
+  project: yard
