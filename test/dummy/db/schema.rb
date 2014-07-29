@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729164713) do
+ActiveRecord::Schema.define(version: 20140729165506) do
 
   create_table "artists", force: true do |t|
     t.string   "name"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20140729164713) do
 
   add_index "artists", ["song_id"], name: "index_artists_on_song_id"
 
+  create_table "conferences", force: true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "emails", force: true do |t|
     t.string   "address"
     t.integer  "user_id"
@@ -30,6 +37,16 @@ ActiveRecord::Schema.define(version: 20140729164713) do
   end
 
   add_index "emails", ["user_id"], name: "index_emails_on_user_id"
+
+  create_table "presentations", force: true do |t|
+    t.string   "topic"
+    t.string   "duration"
+    t.integer  "speaker_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "presentations", ["speaker_id"], name: "index_presentations_on_speaker_id"
 
   create_table "producers", force: true do |t|
     t.string   "name"
@@ -63,6 +80,16 @@ ActiveRecord::Schema.define(version: 20140729164713) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "speakers", force: true do |t|
+    t.string   "name"
+    t.string   "occupation"
+    t.integer  "conference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "speakers", ["conference_id"], name: "index_speakers_on_conference_id"
 
   create_table "tasks", force: true do |t|
     t.string   "name"

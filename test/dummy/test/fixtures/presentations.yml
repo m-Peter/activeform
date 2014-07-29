@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ruby_oop:
+  topic: Ruby OOP
+  duration: 1h
+  speaker: peter
+
+ruby_closures:
+  topic: Ruby Closures
+  duration: 1h
+  speaker: peter
