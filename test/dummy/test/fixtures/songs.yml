@@ -1,0 +1,5 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+lockdown:
+  title: Love Lockdown 
+  length: 350 

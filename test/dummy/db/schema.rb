@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729163500) do
+ActiveRecord::Schema.define(version: 20140729164713) do
+
+  create_table "artists", force: true do |t|
+    t.string   "name"
+    t.integer  "song_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "artists", ["song_id"], name: "index_artists_on_song_id"
 
   create_table "emails", force: true do |t|
     t.string   "address"
@@ -21,6 +30,16 @@ ActiveRecord::Schema.define(version: 20140729163500) do
   end
 
   add_index "emails", ["user_id"], name: "index_emails_on_user_id"
+
+  create_table "producers", force: true do |t|
+    t.string   "name"
+    t.string   "studio"
+    t.integer  "artist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "producers", ["artist_id"], name: "index_producers_on_artist_id"
 
   create_table "profiles", force: true do |t|
     t.string   "twitter_name"
@@ -34,6 +53,13 @@ ActiveRecord::Schema.define(version: 20140729163500) do
 
   create_table "projects", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "songs", force: true do |t|
+    t.string   "title"
+    t.string   "length"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

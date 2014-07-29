@@ -1,0 +1,9 @@
+<div class="field">
+  <%= artist.label :name, "Artist Name" %><br>
+  <%= artist.text_field :name %>
+</div>
+
+<h2>Producer Details</h2>
+<%= artist.fields_for :producer do |producer_fields| %>
+  <%= render "producer", :producer => producer_fields%>      
+<% end %>
