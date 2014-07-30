@@ -166,6 +166,8 @@ module ActiveForm
       macro = association_reflection.macro
 
       case macro
+      when :belongs_to
+        fetch_or_initialize_model
       when :has_one
         fetch_or_initialize_model
       when :has_many
