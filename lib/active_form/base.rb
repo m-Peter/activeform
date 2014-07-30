@@ -66,6 +66,8 @@ module ActiveForm
     end
 
     class << self
+      attr_accessor :model_class
+
       def attributes(*names)
         options = names.pop if names.last.is_a?(Hash)
 
@@ -125,6 +127,7 @@ module ActiveForm
         name = definition.assoc_name
         instance_variable_set("@#{name}", form)
       end
+      self.class.model_class = model.class
     end
 
     def nested_params?(value)
