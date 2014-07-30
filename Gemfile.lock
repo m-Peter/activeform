@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     active_form (0.0.1)
-      rails (~> 4.1.4)
+      rails (~> 4.1.1)
 
 GEM
   remote: https://rubygems.org/
