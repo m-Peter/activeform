@@ -14,6 +14,8 @@ module ActiveForm
       macro = association_reflection.macro
 
       case macro
+      when :belongs_to
+        Form.new(assoc_name, parent, proc)
       when :has_one
         Form.new(assoc_name, parent, proc)
       when :has_many
