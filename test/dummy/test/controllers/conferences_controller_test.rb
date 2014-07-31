@@ -214,6 +214,8 @@ class ConferencesControllerTest < ActionController::TestCase
     
     assert_equal "Rails OOP", conference_form.speaker.presentations[0].topic
     assert_equal "1h", conference_form.speaker.presentations[0].duration
+
+    assert_equal 1, conference_form.speaker.presentations.size
     
     assert_equal "Conference: #{conference_form.name} was successfully updated.", flash[:notice]
   end
