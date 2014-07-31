@@ -1,9 +1,9 @@
 (function($) {
 
-  var cocoon_element_counter = 0;
+  var element_counter = 0;
 
   var create_new_id = function() {
-    return (new Date().getTime() + cocoon_element_counter++);
+    return (new Date().getTime() + element_counter++);
   }
 
   var newcontent_braced = function(id) {
