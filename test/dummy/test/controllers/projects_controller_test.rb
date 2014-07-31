@@ -69,6 +69,8 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to project_path(project_form)
     
     assert_equal "Life", project_form.name
+
+    assert_equal 4, project_form.tasks.size
     
     assert_equal "Eat", project_form.tasks[0].name
     assert_equal "Pray", project_form.tasks[1].name

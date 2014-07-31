@@ -89,6 +89,8 @@ class ConferencesControllerTest < ActionController::TestCase
     
     assert_equal "Petros Markou", conference_form.speaker.name
     assert_equal "Developer", conference_form.speaker.occupation
+
+    assert_equal 3, conference_form.speaker.presentations.size
     
     assert_equal "Ruby OOP", conference_form.speaker.presentations[0].topic
     assert_equal "1h", conference_form.speaker.presentations[0].duration
