@@ -26,10 +26,11 @@ module ActiveForm
     end
 
     def get_model(assoc_name)
-      if form = find_form_by_assoc_name(assoc_name)
-        form.get_model(assoc_name)
-      else  
+      if represents?(assoc_name)
         Form.new(association_name, parent, proc)
+      else
+        form = find_form_by_assoc_name(assoc_name)
+        form.get_model(assoc_name)
       end
     end
 
