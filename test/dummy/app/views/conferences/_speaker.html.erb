@@ -10,7 +10,9 @@
 
 <h2>Presentantions</h2>
 <%= f.fields_for :presentations do |presentations_fields| %>
-  <%= render "presentations", :f => presentations_fields %>
+  <%= render "presentation_fields", :f => presentations_fields %>
 <% end %>
 
-<%= link_to_add_fields("Add a Presentation", f, :presentations) %>
+<div class="links">
+  <%= link_to_add_association "Add a Presentation", f, :presentations %>
+</div>

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @song.title %>
@@ -8,6 +6,21 @@
 <p>
   <strong>Length:</strong>
   <%= @song.length %>
+</p>
+
+<p>
+  <strong>Artist Name:</strong>
+  <%= @song.artist.name %>
+</p>
+
+<p>
+  <strong>Producer Name:</strong>
+  <%= @song.artist.producer.name %>
+</p>
+
+<p>
+  <strong>Studio:</strong>
+  <%= @song.artist.producer.studio %>
 </p>
 
 <%= link_to 'Edit', edit_song_path(@song) %> |

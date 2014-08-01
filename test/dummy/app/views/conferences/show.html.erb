@@ -1,7 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Name:</strong>
+  <strong>Conference Name:</strong>
   <%= @conference.name %>
 </p>
 
@@ -9,6 +7,27 @@
   <strong>City:</strong>
   <%= @conference.city %>
 </p>
+
+<p>
+  <strong>Speaker Name:</strong>
+  <%= @conference.speaker.name %>
+</p>
+
+<p>
+  <strong>Occupation:</strong>
+  <%= @conference.speaker.occupation %>
+</p>
+
+<% @conference.speaker.presentations.each do |presentation| %>
+  <p>
+    <strong>Topic:</strong>
+    <%= presentation.topic %>
+  </p>
+  <p>
+    <strong>Duration:</strong>
+    <%= presentation.duration %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_conference_path(@conference) %> |
 <%= link_to 'Back', conferences_path %>

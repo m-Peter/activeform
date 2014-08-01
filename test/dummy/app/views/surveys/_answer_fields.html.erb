@@ -2,7 +2,6 @@
   <div class="field">
     <%= f.label :content, "Answer" %><br>
     <%= f.text_field :content, :size => 40 %>
+    <%= link_to_remove_association "Delete", f %>
   </div>
-
-  <%= link_to_remove_fields "Delete", f %>
 </div>

@@ -18,10 +18,12 @@
 
   <h2>Tasks</h2>
   <%= f.fields_for :tasks do |task_fields| %>
-    <%= render "tasks", :f => task_fields %>
+    <%= render "task_fields", :f => task_fields %>
   <% end %>
 
-  <%= link_to_add_fields("Add a Task", f, :tasks) %>
+  <div class="links">
+    <%= link_to_add_association "Add a Task", f, :tasks %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

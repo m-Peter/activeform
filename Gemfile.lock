@@ -38,6 +38,9 @@ GEM
     erubis (2.7.0)
     hike (1.2.3)
     i18n (0.6.11)
+    jquery-rails (3.1.1)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -89,4 +92,5 @@ PLATFORMS
 
 DEPENDENCIES
   active_form!
+  jquery-rails
   sqlite3

@@ -18,10 +18,12 @@
 
   <h2>Questions</h2>
   <%= f.fields_for :questions do |question_fields| %>
-    <%= render "questions", :f => question_fields %>
+    <%= render "question_fields", :f => question_fields %>
   <% end %>
 
-  <%= link_to_add_fields("Add a Question", f, :questions) %>
+  <div class="links">
+    <%= link_to_add_association "Add a Question", f, :questions %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

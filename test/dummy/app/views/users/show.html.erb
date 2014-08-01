@@ -12,8 +12,22 @@
 
 <p>
   <strong>Gender:</strong>
-  <%= @user.gender %>
+  <%= @user.gender_display_name %>
 </p>
 
+<p>
+  <strong>Email:</strong>
+  <%= @user.email.address %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @user.profile.twitter_name %>
+</p>
+
+<p>
+  <strong>Github:</strong>
+  <%= @user.profile.github_name %>
+</p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
