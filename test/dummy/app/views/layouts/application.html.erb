@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Dummy</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Cocoon Nested Form Demo (using Simple Form)</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </head>
+  <body style='padding-top:40px;'>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <h3><%= link_to "Nested Form Demo", "#" %></h3>
+          <ul>
+            <li><%= link_to "Home", "#" %></li>
+            <li><%= link_to "About", "#" %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
 
-</body>
+  </body>
 </html>

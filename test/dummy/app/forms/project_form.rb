@@ -1,7 +1,27 @@
 class ProjectForm < ActiveForm::Base
-  attribute :name, required: true
+  attributes :name, :description, :owner_id
 
-  association :tasks, records: 3 do
-    attribute :name, required: true
+  association :tasks do
+    attributes :name, :description, :done
+
+    association :sub_tasks do
+      attributes :name, :description, :done
+    end
+  end
+
+  association :contributors do
+    attributes :name, :description, :role
+  end
+
+  association :project_tags do
+    attribute :tag_id
+    
+    association :tag do
+      attribute :name
+    end
+  end
+
+  association :owner do
+    attributes :name, :description, :role
   end
 end

@@ -14,3 +14,5 @@ gemspec
 # gem 'debugger'
 
 gem "jquery-rails"
+gem "simple_form"
+gem "bootstrap-sass"

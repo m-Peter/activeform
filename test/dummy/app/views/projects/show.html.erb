@@ -1,14 +1,62 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
+
+<div class="alert-message block-message warning">
+  <p>
+    A project has a name, and an owner. It has many tasks, and many people as well.
+    For sake of the example, we assume people only work on one project. While owners can have many projects.
+    A project can have many tags. You can link an existing tag, or add a new tag and link to that.
+  </p>
+</div>
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td><%= @project.name %></td>
+  </tr>
+  <tr>
+    <td>Owned by</td>
+    <td><%= (@project.owner ? @project.owner.try(:name) : 'no owner yet') %></td>
+  </tr>
+</table>
+
+<h3>Tasks</h3>
 
 <p>
-  <strong>Name:</strong>
-  <%= @project.name %>
+  List all the tasks here
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+<table>
+  <% @project.tasks.each do |task| %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%= task.description %></td>
+      <td><%= task.done %></td>
+    </tr>
+  <% end %>
+</table>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
+<h3>Contributors</h3>
+
+<table>
+  <% @project.contributors.each do |contributor| %>
+    <tr>
+      <td><%= contributor.name %></td>
+      <td><%= contributor.role %></td>
+      <td><%= contributor.description %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>Tags</h3>
+
+<table>
+  <% @project.tags.each do |tag| %>
+    <tr>
+      <td><%= tag.name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Edit', edit_project_path(@project) %>
+<%= '|' %>
 <%= link_to 'Back', projects_path %>
