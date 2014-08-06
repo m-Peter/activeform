@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyString
+yard:
+  name: Yard Work
 
-two:
-  name: MyString
-  description: MyString
+gsoc:
+  name: Add Form Models
+  description: Nesting models in a single form
+  owner: peter

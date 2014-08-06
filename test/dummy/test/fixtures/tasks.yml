@@ -1,13 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyString
-  done: false
-  project_id: 
+rake:
+  name: rake the leaves
+  project: yard
 
-two:
-  name: MyString
-  description: MyString
-  done: false
-  project_id: 
+paint:
+  name: paint the fence
+  project: yard

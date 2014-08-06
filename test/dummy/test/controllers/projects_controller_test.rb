@@ -4,7 +4,7 @@ class ProjectsControllerTest < ActionController::TestCase
   fixtures :projects
   
   setup do
-    @project = projects(:one)
+    @project = projects(:yard)
   end
 
   test "should get index" do
