@@ -238,6 +238,9 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "create new project with existing tag" do
     ## FAILS
+    ProjectTag.delete_all
+    Tag.delete_all
+    
     tag = Tag.create(name: "Html Forms")
     project = Project.new
     project_form = ProjectFormFixture.new(project)
@@ -336,6 +339,13 @@ class ProjectFormTest < ActiveSupport::TestCase
       }
     }
 
+    before_owner = project_form.owner.model
+    assert before_owner.new_record?
+    assert_nil before_owner.name
+    assert_nil before_owner.role
+    assert_nil before_owner.description
+    assert_nil project_form.model.owner
+
     project_form.submit(params)
 
     assert_difference('Project.count') do
@@ -344,6 +354,14 @@ class ProjectFormTest < ActiveSupport::TestCase
 
     assert_equal "Add Form Models", project_form.name
     assert_equal "Nesting models in a single form", project_form.description
+
+    assert_not_nil project_form.model.owner
+    assert_not_equal before_owner, project_form.model.owner
+    assert_equal "Petros Markou", project_form.model.owner.name
+    assert_equal "Rails GSoC student", project_form.model.owner.role
+    assert_equal "Working on adding Form Models", project_form.model.owner.description
+
+    assert_equal project_form.owner.model, project_form.model.owner
 
     assert_equal "Petros Markou", project_form.owner.name
     assert_equal "Rails GSoC student", project_form.owner.role
@@ -363,6 +381,13 @@ class ProjectFormTest < ActiveSupport::TestCase
       owner_id: owner.id
     }
 
+    before_owner = project_form.owner.model
+    assert before_owner.new_record?
+    assert_nil before_owner.name
+    assert_nil before_owner.role
+    assert_nil before_owner.description
+    assert_nil project_form.model.owner
+
     project_form.submit(params)
 
     assert_difference('Project.count') do
@@ -372,9 +397,14 @@ class ProjectFormTest < ActiveSupport::TestCase
     assert_equal "Add Form Models", project_form.name
     assert_equal "Nesting models in a single form", project_form.description
 
+    assert_not_nil project_form.model.owner
+    # the problem is that although we update the parent model, we don't
+    # update the nested form's model.
+    assert_not_equal before_owner, project_form.owner.model
+
     assert_equal "Carlos Silva", project_form.owner.name
     assert_equal "RoR Core Member", project_form.owner.role
-    assert_equal "Assisting Peter throughout GSoC", project_form.owner.description
+    assert_equal "Mentoring Peter throughout GSoC", project_form.owner.description
   end
 
   test "update project with new owner" do

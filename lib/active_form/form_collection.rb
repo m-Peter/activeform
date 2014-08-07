@@ -14,9 +14,17 @@ module ActiveForm
       assign_forms
     end
 
+    def update_models
+      forms.each do |form|
+        form.update_models
+      end
+      @forms = []
+      fetch_models
+    end
+
     def submit(params)
       #check_record_limit!(records, params)
-
+      
       params.each do |key, value|
         if parent.persisted?
           create_or_update_record(value)

@@ -1,6 +1,11 @@
 module ActiveForm
   class Base
     include ActiveModel::Model
+    extend ActiveModel::Callbacks
+
+    define_model_callbacks :save, only: [:after]
+
+    after_save :update_form_models
     
     attr_reader :model, :forms
 
@@ -27,8 +32,10 @@ module ActiveForm
 
     def save
       if valid?
-        ActiveRecord::Base.transaction do
-          model.save
+        run_callbacks :save do
+          ActiveRecord::Base.transaction do
+              model.save
+            end
         end
       else
         false
@@ -118,6 +125,12 @@ module ActiveForm
     end
 
     private
+
+    def update_form_models
+      forms.each do |form|
+        form.update_models
+      end
+    end
 
     def populate_forms
       self.class.forms.each do |definition|

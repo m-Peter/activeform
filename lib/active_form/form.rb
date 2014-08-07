@@ -15,7 +15,21 @@ module ActiveForm
       populate_forms
     end
 
+    def update_models
+      reflection = association_reflection
+      
+      if reflection.macro == :belongs_to
+        @model = parent.send("#{association_name}")
+      end
+    end
+
     def submit(params)
+      reflection = association_reflection
+      
+      if reflection.macro == :belongs_to
+        @model = parent.send("build_#{association_name}")
+      end
+      
       params.each do |key, value|
         if nested_params?(value)
           fill_association_with_attributes(key, value)
@@ -168,7 +182,13 @@ module ActiveForm
 
       case macro
       when :belongs_to
-        fetch_or_initialize_model
+        #fetch_or_initialize_model
+
+        if parent.send("#{association_name}")
+          parent.send("#{association_name}")
+        else
+          association_reflection.klass.new
+        end
       when :has_one
         fetch_or_initialize_model
       when :has_many
