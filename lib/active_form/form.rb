@@ -114,8 +114,15 @@ module ActiveForm
         end
       end
 
+      def find_object(assoc)
+        ObjectSpace.each_object Form do |form|
+          return form.parent.class if form.association_name == assoc
+        end
+      end
+
       def reflect_on_association(association)
-        ProjectTag.reflect_on_association(association)
+        klass = find_object(association)
+        klass.reflect_on_association(association)
       end
 
       def declare_form_collection(name, options={}, &block)

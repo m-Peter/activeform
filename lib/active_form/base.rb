@@ -74,6 +74,7 @@ module ActiveForm
 
     class << self
       attr_accessor :model_class
+      delegate :reflect_on_association, to: :model_class
 
       def attributes(*names)
         options = names.pop if names.last.is_a?(Hash)
@@ -96,10 +97,6 @@ module ActiveForm
         else  
           declare_form(name, &block)
         end
-      end
-
-      def reflect_on_association(association)
-        model_class.reflect_on_association(association)
       end
 
       def declare_form_collection(name, options={}, &block)
