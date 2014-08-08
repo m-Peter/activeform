@@ -23,11 +23,21 @@ module ActiveForm
       end
     end
 
+    REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |key, value| key == '_destroy' || value.blank? } }
+
+    def call_reject_if(attributes)
+      REJECT_ALL_BLANK_PROC.call(attributes)
+    end
+
+    def params_for_current_scope(attributes)
+      attributes.dup.reject { |_, v| v.is_a? Hash }
+    end
+
     def submit(params)
       reflection = association_reflection
       
       if reflection.macro == :belongs_to
-        @model = parent.send("build_#{association_name}")
+        @model = parent.send("build_#{association_name}") unless call_reject_if(params_for_current_scope(params))
       end
       
       params.each do |key, value|
