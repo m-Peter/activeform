@@ -229,6 +229,37 @@ class ProjectFormTest < ActiveSupport::TestCase
     assert_nil project_form.model.owner
   end
 
+  test "reject contributor if attributes are all blank" do
+    project = Project.new
+    project_form = ProjectFormFixture.new(project)
+
+    params = {
+      name: "Add Form Models",
+      description: "Google Summer of Code 2014",
+
+      contributors_attributes: {
+        "0" => {
+          name: "Peter Markou",
+          role: "Rails GSoC student",
+          description: "Working on adding Form Models"
+        },
+        "1" => {
+          name: "",
+          role: "",
+          description: ""
+        }
+      }
+    }
+
+    project_form.submit(params)
+
+    assert_difference('Project.count') do
+      project_form.save
+    end
+
+    assert_equal 1, project_form.model.contributors.size
+  end
+
   test "create new project with new tag" do
     project = Project.new
     project_form = ProjectFormFixture.new(project)

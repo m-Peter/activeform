@@ -22,6 +22,12 @@ module ActiveForm
       fetch_models
     end
 
+    REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |key, value| key == '_destroy' || value.blank? } }
+
+    def call_reject_if(attributes)
+      REJECT_ALL_BLANK_PROC.call(attributes)
+    end
+
     def submit(params)
       #check_record_limit!(records, params)
       
@@ -100,6 +106,9 @@ module ActiveForm
       if dynamic_key?(i)
         create_record(attributes)
       else
+        if call_reject_if(attributes)
+          forms[i].delete
+        end
         forms[i].submit(attributes)
       end
     end
