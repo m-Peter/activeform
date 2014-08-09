@@ -73,8 +73,8 @@ module ActiveForm
     end
 
     class << self
-      attr_accessor :model_class
-      delegate :reflect_on_association, to: :model_class
+      attr_accessor :main_class, :main_model
+      delegate :reflect_on_association, to: :main_class
 
       def attributes(*names)
         options = names.pop if names.last.is_a?(Hash)
@@ -89,13 +89,21 @@ module ActiveForm
         end
       end
 
+      def main_class
+        @main_class = main_model.to_s.camelize.constantize
+      end
+
       alias_method :attribute, :attributes
 
       def association(name, options={}, &block)
-        if is_plural?(name)
-          declare_form_collection(name, options, &block)
-        else  
+        macro = main_class.reflect_on_association(name).macro
+        case macro
+        when :has_one
           declare_form(name, &block)
+        when :belongs_to
+          declare_form(name, &block)
+        when :has_many
+          declare_form_collection(name, options, &block)
         end
       end
 
@@ -113,11 +121,6 @@ module ActiveForm
 
       def forms
         @forms ||= []
-      end
-
-      def is_plural?(str)
-        str = str.to_s
-        str.pluralize == str
       end
     end
 
@@ -137,7 +140,6 @@ module ActiveForm
         name = definition.assoc_name
         instance_variable_set("@#{name}", form)
       end
-      self.class.model_class = model.class
     end
 
     def nested_params?(value)

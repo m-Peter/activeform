@@ -1,4 +1,5 @@
 class UserWithEmailFormFixture < ActiveForm::Base
+  self.main_model = :user
   attributes :name, :age, :gender, required: true
 
   association :email do

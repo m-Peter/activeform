@@ -1,4 +1,5 @@
 class SurveyForm < ActiveForm::Base
+  self.main_model = :survey
   attribute :name, required: true
 
   association :questions, records: 1 do

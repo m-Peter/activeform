@@ -1,4 +1,5 @@
 class SongsFormFixture < ActiveForm::Base
+  self.main_model = :song
   attributes :title, :length, required: true
 
   association :artist do

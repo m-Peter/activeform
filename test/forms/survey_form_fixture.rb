@@ -1,4 +1,5 @@
 class SurveyFormFixture < ActiveForm::Base
+  self.main_model = :survey
   attribute :name, required: true
 
   association :questions do

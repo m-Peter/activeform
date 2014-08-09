@@ -1,4 +1,5 @@
 class ProjectForm < ActiveForm::Base
+  self.main_model = :project
   attributes :name, :description, :owner_id
 
   association :tasks do
