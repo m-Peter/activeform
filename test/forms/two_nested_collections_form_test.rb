@@ -11,21 +11,6 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
     @model = @form
   end
 
-  test "Form declares association" do
-    assert_respond_to ActiveForm::Form, :association
-  end
-
-  test "Form contains a list of sub-forms" do
-    assert_respond_to ActiveForm::Form, :forms
-    assert_equal 1, ActiveForm::Form.forms.size
-  end
-
-  test "forms list contains form definitions" do
-    answers_definition = ActiveForm::Form.forms.first
-
-    assert_equal :answers, answers_definition.assoc_name
-  end
-
   test "main form provides getter method for questions collection form" do
     questions_form = @form.forms.first
 
