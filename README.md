@@ -221,6 +221,84 @@ Use `#fields_for` in a Rails environment to correctly setup the structure of par
       = p.text_field :duration
 ```
 
+## Dynamically adding/removing nested objects
+
+ActiveForm comes with two helpers to deal with this functionality:
+
+1. `link_to_add_association` will display a link that renders fields to create a new object
+2. `link_to_remove_association` will display a link to remove a existing/dynamic object
+
+In order to use it you have to insert this line: `//= require link_helpers` to your `application.js` file.
+
+In our `ConferenceForm` we can dynamically create/remove Speaker objects. To do that we would write in the `conferences/_form.html.erb` partial:
+
+```haml
+<%= form_for @form do |f| %>
+
+  <h2>Conference Details</h2>
+  <div class="field">
+    <%= f.label :name, "Conference Name" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+
+  <h2>Speaker Details</h2>
+  <%= f.fields_for :speakers do |speaker_fields| %>
+    <%= render "speaker_fields", :f => speaker_fields %>
+  <% end %>
+  
+  <div class="links">
+    <%= link_to_add_association "Add a Speaker", f, :speakers %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+```
+
+Our `conferences/_speaker_fields.html.erb` would be:
+
+```haml
+  <div class="field">
+    <%= f.label :name, "Speaker Name" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :occupation %><br>
+    <%= f.text_field :occupation %>
+  </div>
+
+  <h2>Presentantion</h2>
+  <%= f.fields_for :presentation do |presentations_fields| %>
+    <%= render "presentation_fields", :f => presentations_fields %>
+  <% end %>
+  
+  <%= link_to_remove_association "Remove Speaker", f %>
+```
+
+And `conferences/_presentation_fields.html.erb` would be:
+
+```haml
+  <div class="nested-fields">
+    <div class="field">
+      <%= f.label :topic %><br>
+      <%= f.text_field :topic %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :duration %><br>
+      <%= f.text_field :duration %>
+    </div>
+    
+    <hr />
+  </div>
+```
+
 ## Demos
 
 You can find a list of applications using this gem in this repository: https://github.com/m-Peter/nested-form-examples .
