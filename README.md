@@ -212,7 +212,7 @@ Use `#fields_for` in a Rails environment to correctly setup the structure of par
   = f.text_field :name
   = f.text_field :city
   
-  = f.fields_for :speakers, records: 2 do |s|
+  = f.fields_for :speakers do |s|
     = s.text_field :name
     = s.text_field :occupation
     
@@ -220,3 +220,8 @@ Use `#fields_for` in a Rails environment to correctly setup the structure of par
       = p.text_field :topic
       = p.text_field :duration
 ```
+
+## Demos
+
+You can find a list of applications using this gem in this repository: https://github.com/m-Peter/nested-form-examples .
+All the examples are implemented in before/after pairs. The before is using the `accepts_nested_attributes_for`, while the after uses this gem to achieve the same functionality.
