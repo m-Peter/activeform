@@ -89,8 +89,8 @@ Your `@form` is now ready to be rendered, either do it yourself or use something
 ```haml
 = form_for @form do |f|
 
-  = f.input :name
-  = f.input :city
+  = f.text_field :name
+  = f.text_field :city
 ```
 
 Nested forms and collections can be easily rendered with `fields_for`, etc. Just use ActiveForm as if it would be an ActiveModel instance in the view layer.
@@ -216,7 +216,7 @@ Use `#fields_for` in a Rails environment to correctly setup the structure of par
     = s.text_field :name
     = s.text_field :occupation
     
-    = f.fields_for :presentation do |p|
+    = s.fields_for :presentation do |p|
       = p.text_field :topic
       = p.text_field :duration
 ```
@@ -263,6 +263,7 @@ In our `ConferenceForm` we can dynamically create/remove Speaker objects. To do 
 Our `conferences/_speaker_fields.html.erb` would be:
 
 ```haml
+<div class="nested-fields">
   <div class="field">
     <%= f.label :name, "Speaker Name" %><br>
     <%= f.text_field :name %>
@@ -273,30 +274,27 @@ Our `conferences/_speaker_fields.html.erb` would be:
     <%= f.text_field :occupation %>
   </div>
 
-  <h2>Presentantion</h2>
+  <h2>Presentantions</h2>
   <%= f.fields_for :presentation do |presentations_fields| %>
     <%= render "presentation_fields", :f => presentations_fields %>
   <% end %>
-  
-  <%= link_to_remove_association "Remove Speaker", f %>
+
+  <%= link_to_remove_association "Delete", f %>
+</div>
 ```
 
 And `conferences/_presentation_fields.html.erb` would be:
 
 ```haml
-  <div class="nested-fields">
-    <div class="field">
-      <%= f.label :topic %><br>
-      <%= f.text_field :topic %>
-    </div>
-  
-    <div class="field">
-      <%= f.label :duration %><br>
-      <%= f.text_field :duration %>
-    </div>
-    
-    <hr />
-  </div>
+<div class="field">
+  <%= f.label :topic %><br>
+  <%= f.text_field :topic %>
+</div>
+
+<div class="field">
+  <%= f.label :duration %><br>
+  <%= f.text_field :duration %>
+</div>
 ```
 
 ## Demos
