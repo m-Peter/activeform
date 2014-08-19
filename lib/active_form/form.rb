@@ -58,7 +58,7 @@ module ActiveForm
     alias_method :attribute, :attributes
 
     def method_missing(method_sym, *arguments, &block)
-      if method_sym =~ /^validate*$/
+      if method_sym =~ /^validates?$/
         class_eval do
           send(method_sym, *arguments, &block)
         end
