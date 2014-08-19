@@ -60,7 +60,8 @@ In your controller you create a form instance and pass in the model you want to 
 ```ruby
 class ConferencesController
   def new
-    @form = ConferenceForm.new(Conference.new)
+    conference = Conference.new
+    @conference_form = ConferenceForm.new(conference)
   end
 ```
 
@@ -69,7 +70,8 @@ You can also setup the form for editing existing items.
 ```ruby
 class ConferencesController
   def edit
-    @form = ConferenceForm.new(Conference.find(1))
+    conference = Conference.find(params[:id])
+    @conference_form = ConferenceForm.new(conference)
   end
 ```
 
@@ -84,10 +86,10 @@ Internally, this form will call `conference.name` to populate the name field.
 
 ## Rendering Forms
 
-Your `@form` is now ready to be rendered, either do it yourself or use something like Rails' `#form_for`, `simple_form` or `formtastic`.
+Your `@conference_form` is now ready to be rendered, either do it yourself or use something like Rails' `#form_for`, `simple_form` or `formtastic`.
 
 ```haml
-= form_for @form do |f|
+= form_for @conference_form do |f|
 
   = f.text_field :name
   = f.text_field :city
@@ -102,8 +104,9 @@ After setting up your Form Object, you can populate the models with the submitte
 ```ruby
 class ConferencesController
   def create
-    @form = ConferenceForm.new(Conference.new)
-    @form.submit(conference_params)
+    conference = Conference.new
+    @conference_form = ConferenceForm.new(conference)
+    @conference_form.submit(conference_params)
   end
 ```
 
@@ -116,12 +119,13 @@ After the form is populated with the posted data, you can save the model by call
 ```ruby
 class ConferencesController
   def create
-    @form = ConferenceForm.new(Conference.new)
-    @form.submit(conference_params)
+    conference = Conference.new
+    @conference_form = ConferenceForm.new(conference)
+    @conference_form.submit(conference_params)
 
     respond_to do |format|
-      if @form.save
-        format.html { redirect_to @form, notice: "Conference: #{@form.name} was successfully created." }
+      if @conference_form.save
+        format.html { redirect_to @conference_form, notice: "Conference: #{@conference_form.name} was successfully created." }
       else
         format.html { render :new }
       end
@@ -166,7 +170,7 @@ This basically works like a nested `property` that iterates over a collection of
 ActiveForm will expose the collection using the `#speakers` method.
 
 ```haml
-= form_for @form |f|
+= form_for @conference_form |f|
   = f.text_field :name
   = f.text_field :city
 
@@ -208,7 +212,7 @@ end
 Use `#fields_for` in a Rails environment to correctly setup the structure of params.
 
 ```haml
-= form_for @form |f|
+= form_for @conference_form |f|
   = f.text_field :name
   = f.text_field :city
   
@@ -233,7 +237,18 @@ In order to use it you have to insert this line: `//= require link_helpers` to y
 In our `ConferenceForm` we can dynamically create/remove Speaker objects. To do that we would write in the `conferences/_form.html.erb` partial:
 
 ```haml
-<%= form_for @form do |f| %>
+<%= form_for @conference_form do |f| %>
+  <% if @conference_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conference_form.errors.count, "error") %> prohibited this conference from being saved:</h2>
+
+      <ul>
+      <% @conference_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <h2>Conference Details</h2>
   <div class="field">
@@ -249,7 +264,7 @@ In our `ConferenceForm` we can dynamically create/remove Speaker objects. To do 
   <%= f.fields_for :speakers do |speaker_fields| %>
     <%= render "speaker_fields", :f => speaker_fields %>
   <% end %>
-  
+
   <div class="links">
     <%= link_to_add_association "Add a Speaker", f, :speakers %>
   </div>
