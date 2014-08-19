@@ -97,26 +97,25 @@ module ActiveForm
 
       def association(name, options={}, &block)
         macro = main_class.reflect_on_association(name).macro
+
         case macro
-        when :has_one
-          declare_form(name, &block)
-        when :belongs_to
+        when :has_one, :belongs_to
           declare_form(name, &block)
         when :has_many
           declare_form_collection(name, options, &block)
         end
+
+        define_method("#{name}_attributes=") {}
       end
 
       def declare_form_collection(name, options={}, &block)
         forms << FormDefinition.new({assoc_name: name, records: options[:records], proc: block})
         self.class_eval("def #{name}; @#{name}.models; end")
-        define_method("#{name}_attributes=") {}
       end
 
       def declare_form(name, &block)
         forms << FormDefinition.new({assoc_name: name, proc: block})
         attr_reader name
-        define_method("#{name}_attributes=") {}
       end
 
       def forms
@@ -135,10 +134,10 @@ module ActiveForm
     def populate_forms
       self.class.forms.each do |definition|
         definition.parent = model
-        form = definition.to_form
-        forms << form
+        nested_form = definition.to_form
+        forms << nested_form
         name = definition.assoc_name
-        instance_variable_set("@#{name}", form)
+        instance_variable_set("@#{name}", nested_form)
       end
     end
 

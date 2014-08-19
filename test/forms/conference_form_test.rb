@@ -11,21 +11,6 @@ class ConferenceFormTest < ActiveSupport::TestCase
     @model = @form
   end
 
-  test "Form declares association" do
-    assert_respond_to ActiveForm::Form, :association
-  end
-
-  test "Form contains a list of sub-forms" do
-    assert_respond_to ActiveForm::Form, :forms
-    assert_equal 1, ActiveForm::Form.forms.size
-  end
-
-  test "forms list contains form definitions" do
-    producer_definition = ActiveForm::Form.forms.first
-
-    assert_equal :presentations, producer_definition.assoc_name
-  end
-
   test "contains getter for presentations sub-form" do
     assert_respond_to @form.speaker, :presentations
 

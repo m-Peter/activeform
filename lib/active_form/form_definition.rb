@@ -7,17 +7,13 @@ module ActiveForm
     end
 
     def to_form
-      if !association_reflection
-        return nil
-      end
-      
       macro = association_reflection.macro
 
       case macro
-      when :belongs_to
-        Form.new(assoc_name, parent, proc)
-      when :has_one
-        Form.new(assoc_name, parent, proc)
+      when :has_one, :belongs_to
+        form = Form.new(assoc_name, parent, proc)
+        form.instance_eval &proc
+        form
       when :has_many
         FormCollection.new(assoc_name, parent, proc, {records: records})
       end
