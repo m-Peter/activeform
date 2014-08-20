@@ -9,6 +9,8 @@ module ActiveForm
     
     attr_reader :model, :forms
 
+    delegate :persisted?, :to_model, :to_key, :to_param, :to_partial_path, to: :model
+
     def initialize(model)
       @model = model
       @forms = []
@@ -35,7 +37,7 @@ module ActiveForm
         run_callbacks :save do
           ActiveRecord::Base.transaction do
               model.save
-            end
+          end
         end
       else
         false
@@ -50,26 +52,6 @@ module ActiveForm
       aggregate_form_errors
       
       errors.empty?
-    end
-
-    def persisted?
-      model.persisted?
-    end
-
-    def to_key
-      model.to_key
-    end
-
-    def to_param
-      model.to_param
-    end
-
-    def to_partial_path
-      model.to_partial_path
-    end
-
-    def to_model
-      model
     end
 
     class << self
