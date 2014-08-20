@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.1.1
 before_script:
-  - bundle exec
+  - bundle exec rake
   - cd test/dummy/
   - rake db:migrate
   - RAILS_ENV=test rake db:schema:load
