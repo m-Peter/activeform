@@ -1,7 +1,6 @@
 module ActiveForm
   class FormCollection
     include ActiveModel::Validations
-    include Enumerable
 
     attr_reader :association_name, :records, :parent, :proc, :forms
 
@@ -15,18 +14,11 @@ module ActiveForm
     end
 
     def update_models
-      #forms.each do |form|
-       # form.update_models
-      #end
       @forms = []
       fetch_models
     end
 
-    REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |key, value| key == '_destroy' || value.blank? } }
-
-    def call_reject_if(attributes)
-      REJECT_ALL_BLANK_PROC.call(attributes)
-    end
+    
 
     def submit(params)
       #check_record_limit!(records, params)
@@ -68,7 +60,13 @@ module ActiveForm
 
     private
 
+    REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |key, value| key == '_destroy' || value.blank? } }
+
     UNASSIGNABLE_KEYS = %w( id _destroy )
+
+    def call_reject_if(attributes)
+      REJECT_ALL_BLANK_PROC.call(attributes)
+    end
 
     def assign_to_or_mark_for_destruction(form, attributes)
       form.submit(attributes.except(*UNASSIGNABLE_KEYS))
@@ -169,11 +167,7 @@ module ActiveForm
     end
 
     def find_form_by_model_id(id)
-      forms.each do |form|
-        if form.id == id.to_i
-          return form
-        end
-      end
+     forms.select { |form| form.id == id.to_i }.first
     end
 
     def remove_form(form)

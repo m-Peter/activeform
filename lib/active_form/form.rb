@@ -33,24 +33,22 @@ module ActiveForm
       @forms << nested_form
       instance_variable_set("@#{name}", nested_form)
 
-      class_eval do
-        define_method("#{name}_attributes=") {}
-      end
+      class_eval "def #{name}_attributes=; end"
     end
 
     def attributes(*arguments)
       class_eval do
-          options = arguments.pop if arguments.last.is_a?(Hash)
+        options = arguments.pop if arguments.last.is_a?(Hash)
 
-          if options && options[:required]
-            validates_presence_of *arguments
-          end
-
-          arguments.each do |attribute|
-            delegate attribute, to: :model
-            delegate "#{attribute}=", to: :model
-          end
+        if options && options[:required]
+          validates_presence_of *arguments
         end
+
+        arguments.each do |attribute|
+          delegate attribute, to: :model
+          delegate "#{attribute}=", to: :model
+        end
+      end
     end
 
     alias_method :attribute, :attributes
@@ -151,9 +149,7 @@ module ActiveForm
     end
 
     def find_form_by_assoc_name(assoc_name)
-      forms.each do |form|
-        return form if form.represents?(assoc_name)
-      end
+      forms.select { |form| form.represents?(assoc_name) }.first
     end
 
     def nested_params?(value)
