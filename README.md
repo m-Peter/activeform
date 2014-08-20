@@ -1,6 +1,6 @@
 # ActiveForm
 
-[![Build Status][BS img]][Build Status]
+[![Build Status](https://travis-ci.org/m-Peter/activeform.svg?branch=master)](https://travis-ci.org/m-Peter/activeform)
 
 Set your models free from the `accepts_nested_attributes_for` helper. ActiveForm provides an object-oriented approach to represent your forms by building a Form Object, rather than relying on ActiveRecord internals for doing this. The Form Object provides an API to describe the models involved in the form, their attributes and validations. The Form Object deals with create/update actions of nested objects in a more seamless way.
 
