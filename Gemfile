@@ -13,6 +13,10 @@ gemspec
 # To use debugger
 # gem 'debugger'
 
+group :test do
+  gem "rake"
+end
+
 gem "jquery-rails"
 gem "simple_form"
 gem "bootstrap-sass"
