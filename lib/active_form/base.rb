@@ -89,12 +89,12 @@ module ActiveForm
       end
 
       def declare_form_collection(name, options={}, &block)
-        forms << FormDefinition.new({assoc_name: name, records: options[:records], proc: block})
+        forms << FormDefinition.new(name, block, options)
         class_eval("def #{name}; @#{name}.models; end")
       end
 
       def declare_form(name, &block)
-        forms << FormDefinition.new({assoc_name: name, proc: block})
+        forms << FormDefinition.new(name, block)
         attr_reader name
       end
 

@@ -2,8 +2,10 @@ module ActiveForm
   class FormDefinition
     attr_accessor :assoc_name, :proc, :parent, :records
     
-    def initialize(args={})
-      assign_arguments(args)
+    def initialize(assoc_name, block, options={})
+      @assoc_name = assoc_name
+      @proc = block
+      @records = options[:records]
     end
 
     def to_form
@@ -20,12 +22,6 @@ module ActiveForm
     end
 
     private
-
-    def assign_arguments(args={})
-      args.each do |key, value|
-        send("#{key}=", value) if respond_to?(key)
-      end
-    end
 
     def association_reflection
       parent.class.reflect_on_association(@assoc_name)

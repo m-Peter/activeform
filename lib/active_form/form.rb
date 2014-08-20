@@ -19,19 +19,17 @@ module ActiveForm
 
     def association(name, options={}, &block)
       macro = model.class.reflect_on_association(name).macro
+      form_definition = FormDefinition.new(name, block, options)
+      form_definition.parent = @model
 
       case macro
       when :has_one, :belongs_to
-        class_eval do
-          attr_reader name
-        end
-        nested_form = Form.new(name, @model, block)
-        nested_form.instance_eval &block
+        class_eval "def #{name}; @#{name}; end"
       when :has_many
         class_eval "def #{name}; @#{name}.models; end"
-        nested_form = FormCollection.new(name, @model, block, options)
       end
 
+      nested_form = form_definition.to_form
       @forms << nested_form
       instance_variable_set("@#{name}", nested_form)
 
