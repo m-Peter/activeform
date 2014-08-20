@@ -4,13 +4,11 @@ module ActiveForm
     extend ActiveModel::Callbacks
 
     define_model_callbacks :save, only: [:after]
-
     after_save :update_form_models
     
-    attr_reader :model, :forms
-
     delegate :persisted?, :to_model, :to_key, :to_param, :to_partial_path, to: :model
-
+    attr_reader :model, :forms
+    
     def initialize(model)
       @model = model
       @forms = []
@@ -92,7 +90,7 @@ module ActiveForm
 
       def declare_form_collection(name, options={}, &block)
         forms << FormDefinition.new({assoc_name: name, records: options[:records], proc: block})
-        self.class_eval("def #{name}; @#{name}.models; end")
+        class_eval("def #{name}; @#{name}.models; end")
       end
 
       def declare_form(name, &block)
