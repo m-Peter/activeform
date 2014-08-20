@@ -141,9 +141,7 @@ module ActiveForm
     end
 
     def find_form_by_assoc_name(assoc_name)
-      forms.each do |form|
-        return form if form.represents?(assoc_name)
-      end
+      forms.select { |form| form.represents?(assoc_name) }.first
     end
 
     def aggregate_form_errors
