@@ -1,0 +1,31 @@
+<%= form_for @assignment_form do |f| %>
+  <% if @assignment_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assignment_form.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @assignment_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <h2>Tasks Details</h2>
+  <%= f.fields_for :tasks do |task_fields| %>
+    <%= render "task_fields", :f => task_fields %>
+  <% end %>
+
+  <div class="links">
+    <%= link_to_add_association "Add a Task", f, :tasks %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

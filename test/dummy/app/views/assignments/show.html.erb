@@ -1,0 +1,16 @@
+<p>
+  <strong>Assignment Name:</strong>
+  <%= @assignment.name %>
+</p>
+
+<h2>Tasks</h2>
+<ol>
+<% @assignment.tasks.each do |task| %>
+  <li>
+    <%= task.name %>
+  </li>
+<% end %>
+</ol>
+
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<%= link_to 'Back', assignments_path %>

@@ -3,7 +3,13 @@
 rake:
   name: rake the leaves
   project: yard
+  assignment: yard
 
 paint:
   name: paint the fence
   project: yard
+  assignment: yard
+
+clean:
+  name: clean the gutters
+  assignment: yard
