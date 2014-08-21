@@ -64,8 +64,7 @@ module ActiveForm
         end
 
         names.each do |attribute|
-          delegate attribute, to: :model
-          delegate "#{attribute}=", to: :model
+          delegate attribute, "#{attribute}=", to: :model
         end
       end
 

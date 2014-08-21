@@ -18,11 +18,7 @@ module ActiveForm
       fetch_models
     end
 
-    
-
     def submit(params)
-      #check_record_limit!(records, params)
-      
       params.each do |key, value|
         if parent.persisted?
           create_or_update_record(value)
