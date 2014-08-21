@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AssignmentsControllerTest < ActionController::TestCase
-  fixtures :assignments
+  fixtures :assignments, :tasks
   
   setup do
     @assignment = assignments(:yard)
@@ -90,9 +90,9 @@ class AssignmentsControllerTest < ActionController::TestCase
         name: "Car service",
         
         tasks_attributes: {
-          "0" => { name: "Wash tires", id: @assignment.tasks[0].id },
-          "1" => { name: "Clean inside", id: @assignment.tasks[1].id },
-          "2" => { name: "Check breaks", id: @assignment.tasks[2].id },
+          "0" => { name: "Wash tires", id: tasks(:rake).id },
+          "1" => { name: "Clean inside", id: tasks(:paint).id },
+          "2" => { name: "Check breaks", id: tasks(:clean).id },
         }
       }
     end
