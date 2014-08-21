@@ -2,6 +2,7 @@ module ActiveForm
   class Form
     include ActiveModel::Validations
 
+    delegate :id, :_destroy, :persisted?, to: :model
     attr_reader :association_name, :parent, :model, :forms, :proc
 
     def initialize(assoc_name, parent, proc, model=nil)
@@ -114,18 +115,6 @@ module ActiveForm
       aggregate_form_errors
       
       errors.empty?
-    end
-
-    def id
-      model.id
-    end
-
-    def _destroy
-      model.marked_for_destruction?
-    end
-
-    def persisted?
-      model.persisted?
     end
 
     def represents?(assoc_name)
