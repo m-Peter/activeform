@@ -319,3 +319,15 @@ And `conferences/_presentation_fields.html.erb` would be:
 
 You can find a list of applications using this gem in this repository: https://github.com/m-Peter/nested-form-examples .
 All the examples are implemented in before/after pairs. The before is using the `accepts_nested_attributes_for`, while the after uses this gem to achieve the same functionality.
+
+## Credits
+
+The work of this gem was based and inspired on the following gems:
+
+* [reform](https://github.com/apotonick/reform)
+* [cocoon](https://github.com/nathanvda/cocoon)
+
+Special thanks for the great job on their creators:
+
+* [Nick Sutterer](https://github.com/apotonick) - creator of reform
+* [Nathan Van der Auwera](https://github.com/nathanvda) - creator of cocoon
