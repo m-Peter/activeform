@@ -322,12 +322,7 @@ All the examples are implemented in before/after pairs. The before is using the 
 
 ## Credits
 
-The work of this gem was based and inspired on the following gems:
+Special thanks to the owners of the great gems that inspired this work:
 
-* [reform](https://github.com/apotonick/reform)
-* [cocoon](https://github.com/nathanvda/cocoon)
-
-Special thanks for the great job on their creators:
-
-* [Nick Sutterer](https://github.com/apotonick) - creator of reform
-* [Nathan Van der Auwera](https://github.com/nathanvda) - creator of cocoon
+* [Nick Sutterer](https://github.com/apotonick) - creator of [reform](https://github.com/apotonick/reform)
+* [Nathan Van der Auwera](https://github.com/nathanvda) - creator of [cocoon](https://github.com/nathanvda/cocoon)
