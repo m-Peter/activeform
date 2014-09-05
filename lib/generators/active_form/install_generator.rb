@@ -3,7 +3,7 @@ require 'rails/generators/base'
 
 module ActiveForm
   module Generators
-    class InstallGenerator < ::Rails::Generators::Base
+    class InstallGenerator < Rails::Generators::Base
 
       desc "Creates a forms directory into your app and test directories and includes the necessary JS file."
 
