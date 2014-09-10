@@ -197,7 +197,7 @@ end
 The full form should look like this:
 
 ```ruby
-  class ConferenceForm < ActiveForm::Base
+class ConferenceForm < ActiveForm::Base
   attributes :name, :city, required: true
 
   association :speakers do
