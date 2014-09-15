@@ -1,10 +1,6 @@
 require 'test_helper'
-require_relative 'user_with_email_and_profile_form_fixture'
-require_relative 'songs_form_fixture'
-require_relative 'user_form_fixture'
-require_relative 'user_with_email_form_fixture'
-require_relative 'conference_form_fixture'
-require_relative 'survey_form_fixture'
+require_relative '../fixtures/user_form_fixture'
+require_relative '../fixtures/user_with_email_form_fixture'
 
 class NestedModelRenderingTest < ActionView::TestCase
   fixtures :all
@@ -176,7 +172,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a new instance of UserWithEmailAndProfileFormFixture" do
     user = User.new
-    user_form = UserWithEmailAndProfileFormFixture.new(user)
+    user_form = UserForm.new(user)
 
     form_for user_form do |f|
       concat f.label(:name)
@@ -232,7 +228,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly an existing instance of UserWithEmailAndProfileFormFixture" do
     user = users(:peter)
-    user_form = UserWithEmailAndProfileFormFixture.new(user)
+    user_form = UserForm.new(user)
 
     form_for user_form do |f|
       concat f.label(:name)
@@ -292,7 +288,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a new instance of SongsFormFixture" do
     song = Song.new
-    song_form = SongsFormFixture.new(song)
+    song_form = SongForm.new(song)
     artist = song_form.artist
     producer = artist.producer
 
@@ -342,7 +338,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a existing instance of SongsFormFixture" do
     song = songs(:lockdown)
-    song_form = SongsFormFixture.new(song)
+    song_form = SongForm.new(song)
     artist = song_form.artist
     producer = artist.producer
 
@@ -396,7 +392,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a new instance of ConferenceFormFixture" do
     conference = Conference.new
-    conference_form = ConferenceFormFixture.new(conference)
+    conference_form = ConferenceForm.new(conference)
     speaker = conference_form.speaker
     presentations = speaker.presentations
 
@@ -453,7 +449,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correct a existing instance of ConferenceFormFixture" do
     conference = conferences(:ruby)
-    conference_form = ConferenceFormFixture.new(conference)
+    conference_form = ConferenceForm.new(conference)
     speaker = conference_form.speaker
     presentations = speaker.presentations
 
@@ -513,7 +509,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a new instance of SurveyFormFixture" do
     survey = Survey.new
-    survey_form = SurveyFormFixture.new(survey)
+    survey_form = SurveyForm.new(survey)
     questions = survey_form.questions
 
     form_for survey_form do |f|
@@ -554,7 +550,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
   test "form_for renders correctly a existing instance of SurveyFormFixture" do
     survey = surveys(:programming)
-    survey_form = SurveyFormFixture.new(survey)
+    survey_form = SurveyForm.new(survey)
     questions = survey_form.questions
 
     form_for survey_form do |f|

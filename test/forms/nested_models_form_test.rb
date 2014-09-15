@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative 'user_with_email_and_profile_form_fixture'
 
 class NestedModelsFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests
@@ -7,18 +6,18 @@ class NestedModelsFormTest < ActiveSupport::TestCase
 
   def setup
     @user = User.new
-    @form = UserWithEmailAndProfileFormFixture.new(@user)
+    @form = UserForm.new(@user)
     @profile_form = @form.profile
     @model = @form
   end
 
   test "declares both sub-forms" do
-    assert_equal 2, UserWithEmailAndProfileFormFixture.forms.size
+    assert_equal 2, UserForm.forms.size
     assert_equal 2, @form.forms.size
   end
 
   test "forms list contains profile sub-form definition" do
-    profile_definition = UserWithEmailAndProfileFormFixture.forms.last
+    profile_definition = UserForm.forms.last
 
     assert_equal :profile, profile_definition.assoc_name
   end
@@ -55,7 +54,7 @@ class NestedModelsFormTest < ActiveSupport::TestCase
 
   test "profile sub-form fetches model for existing parent" do
     user = users(:peter)
-    user_form = UserWithEmailAndProfileFormFixture.new(user)
+    user_form = UserForm.new(user)
     profile_form = user_form.profile
 
     assert_instance_of Profile, profile_form.model
@@ -146,7 +145,7 @@ class NestedModelsFormTest < ActiveSupport::TestCase
 
   test "main form updates its model and the models in nested sub-forms" do
     user = users(:peter)
-    form = UserWithEmailAndProfileFormFixture.new(user)
+    form = UserForm.new(user)
     params = {
       name: "Petrakos",
       age: 24,
