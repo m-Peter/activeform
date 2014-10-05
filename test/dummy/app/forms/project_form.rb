@@ -10,7 +10,7 @@ class ProjectForm < ActiveForm::Base
     end
   end
 
-  association :contributors do
+  association :contributors, records: 2 do
     attributes :name, :description, :role
   end
 

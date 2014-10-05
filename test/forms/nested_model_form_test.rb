@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative 'user_with_email_form_fixture'
+require_relative '../fixtures/user_with_email_form_fixture'
 
 class NestedModelFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests

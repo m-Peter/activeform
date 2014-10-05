@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative 'project_form_fixture'
 
 class ProjectFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests
@@ -7,7 +6,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   def setup
     @project = Project.new
-    @form = ProjectFormFixture.new(@project)
+    @form = ProjectForm.new(@project)
     @tasks_form = @form.forms[0]
     @contributors_form = @form.forms[1]
     @project_tags_form = @form.forms[2]
@@ -24,16 +23,16 @@ class ProjectFormTest < ActiveSupport::TestCase
   end
 
   test "declares collection association" do
-    assert_respond_to ProjectFormFixture, :association
+    assert_respond_to ProjectForm, :association
   end
 
   test "forms list contains sub-form definitions" do
-    assert_equal 4, ProjectFormFixture.forms.size
+    assert_equal 4, ProjectForm.forms.size
 
-    tasks_definition = ProjectFormFixture.forms[0]
-    contributors_definition = ProjectFormFixture.forms[1]
-    project_tags_definition = ProjectFormFixture.forms[2]
-    owner_definition = ProjectFormFixture.forms[3]
+    tasks_definition = ProjectForm.forms[0]
+    contributors_definition = ProjectForm.forms[1]
+    project_tags_definition = ProjectForm.forms[2]
+    owner_definition = ProjectForm.forms[3]
 
     assert_equal :tasks, tasks_definition.assoc_name
     assert_equal :contributors, contributors_definition.assoc_name
@@ -207,7 +206,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "reject owner if attributes are all blank" do
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -231,7 +230,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "reject contributor if attributes are all blank" do
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -262,7 +261,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "create new project with new tag" do
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -298,7 +297,7 @@ class ProjectFormTest < ActiveSupport::TestCase
     
     tag = Tag.create(name: "Html Forms")
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -325,7 +324,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "update existing project with new tag" do
     project = Project.create(name: "Add Form Models", description: "Google Summer of Code 2014")
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       project_tags_attributes: {
@@ -355,7 +354,7 @@ class ProjectFormTest < ActiveSupport::TestCase
     ## FAILS
     tag = Tag.create(name: "Html Forms")
     project = Project.create(name: "Form Models", description: "Google Summer of Code 2014")
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -381,7 +380,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "create new project with new owner" do
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -427,7 +426,7 @@ class ProjectFormTest < ActiveSupport::TestCase
     ## FAILS
     owner = Person.create(name: "Carlos Silva", role: "RoR Core Member", description: "Mentoring Peter throughout GSoC")
     project = Project.new
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
 
     params = {
       name: "Add Form Models",
@@ -464,7 +463,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "update project with new owner" do
     project = Project.create(name: "Form Models", description: "GSoC 2014")
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
     
     params = {
       name: "Add Form Models",
@@ -495,7 +494,7 @@ class ProjectFormTest < ActiveSupport::TestCase
     ## FAILS
     owner = Person.create(name: "Carlos Silva", role: "RoR Core Member", description: "Mentoring Peter throughout GSoC")
     project = Project.create(name: "Form Models", description: "GSoC 2014")
-    project_form = ProjectFormFixture.new(project)
+    project_form = ProjectForm.new(project)
     
     params = {
       name: "Add Form Models",
@@ -532,7 +531,7 @@ class ProjectFormTest < ActiveSupport::TestCase
   test "project form fetches task objects for existing Project" do
     project = projects(:yard)
 
-    form = ProjectFormFixture.new(project)
+    form = ProjectForm.new(project)
 
     assert_equal project.name, form.name
     assert_equal 2, form.tasks.size
@@ -543,7 +542,7 @@ class ProjectFormTest < ActiveSupport::TestCase
   test "project form fetches contributor objects for existing Project" do
     project = projects(:gsoc)
 
-    form = ProjectFormFixture.new(project)
+    form = ProjectForm.new(project)
 
     assert_equal project.name, "Add Form Models"
     assert_equal project.description, "Nesting models in a single form"
@@ -555,7 +554,7 @@ class ProjectFormTest < ActiveSupport::TestCase
   test "project form fetches owner object for existing Project" do
     project = projects(:gsoc)
 
-    form = ProjectFormFixture.new(project)
+    form = ProjectForm.new(project)
 
     assert_equal project.name, "Add Form Models"
     assert_equal project.description, "Nesting models in a single form"
@@ -680,7 +679,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "project form updates its model and its tasks" do
     project = projects(:yard)
-    form = ProjectFormFixture.new(project)
+    form = ProjectForm.new(project)
     params = {
       name: "Life",
       
@@ -708,7 +707,7 @@ class ProjectFormTest < ActiveSupport::TestCase
 
   test "project form updates its model and its contributors" do
     project = projects(:gsoc)
-    form = ProjectFormFixture.new(project)
+    form = ProjectForm.new(project)
     params = {
       name: "Add Form Models",
       description: "Nesting models in a single form",
