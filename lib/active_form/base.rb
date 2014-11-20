@@ -42,6 +42,10 @@ module ActiveForm
       end
     end
 
+    def save!
+      save or raise ActiveRecord::RecordInvalid.new(self)
+    end
+
     def valid?
       super
       model.valid?
