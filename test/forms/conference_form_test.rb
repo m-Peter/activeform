@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative 'conference_form_fixture'
 
 class ConferenceFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests
@@ -7,7 +6,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   def setup
     @conference = Conference.new
-    @form = ConferenceFormFixture.new(@conference)
+    @form = ConferenceForm.new(@conference)
     @model = @form
   end
 
@@ -66,7 +65,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
   test "presentations sub-form fetches parent and association objects" do
     conference = conferences(:ruby)
 
-    form = ConferenceFormFixture.new(conference)
+    form = ConferenceForm.new(conference)
 
     assert_equal conference.name, form.name
     assert_equal 2, form.speaker.presentations.size
@@ -279,7 +278,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   test "main form updates its model and the models in nested sub-forms" do
     conference = conferences(:ruby)
-    form = ConferenceFormFixture.new(conference)
+    form = ConferenceForm.new(conference)
     params = {
       name: "GoGaruco",
       city: "Golden State",
@@ -316,7 +315,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   test "main form updates its model and saves dynamically added models in nested sub-forms" do
     conference = conferences(:ruby)
-    form = ConferenceFormFixture.new(conference)
+    form = ConferenceForm.new(conference)
     params = {
       name: "GoGaruco",
       city: "Golden State",
@@ -356,7 +355,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   test "main form deletes models in nested sub-forms" do
     conference = conferences(:ruby)
-    form = ConferenceFormFixture.new(conference)
+    form = ConferenceForm.new(conference)
     params = {
       name: "GoGaruco",
       city: "Golden State",
@@ -396,7 +395,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   test "main form deletes and adds models in nested sub-forms" do
     conference = conferences(:ruby)
-    form = ConferenceFormFixture.new(conference)
+    form = ConferenceForm.new(conference)
     params = {
       name: "GoGaruco",
       city: "Golden State",

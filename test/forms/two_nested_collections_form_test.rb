@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative 'survey_form_fixture'
 
 class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests
@@ -7,7 +6,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
   def setup
     @survey = Survey.new
-    @form = SurveyFormFixture.new(@survey)
+    @form = SurveyForm.new(@survey)
     @model = @form
   end
 
@@ -93,7 +92,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
   test "main form fetches parent and association objects" do
     survey = surveys(:programming)
 
-    form = SurveyFormFixture.new(survey)
+    form = SurveyForm.new(survey)
 
     assert_equal survey.name, form.name
     assert_equal 1, form.questions.size
@@ -282,7 +281,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
   test "main form updates its model and the models in nested sub-forms" do
     survey = surveys(:programming)
-    form = SurveyFormFixture.new(survey)
+    form = SurveyForm.new(survey)
     params = {
       name: "Native languages",
 
@@ -314,7 +313,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
   test "main form updates its model and saves dynamically added models in nested sub-forms" do
     survey = surveys(:programming)
-    form = SurveyFormFixture.new(survey)
+    form = SurveyForm.new(survey)
     params = {
       name: "Native languages",
 
@@ -357,7 +356,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
   test "main form deletes models in nested sub-forms" do
     survey = surveys(:programming)
-    form = SurveyFormFixture.new(survey)
+    form = SurveyForm.new(survey)
     params = {
       name: "Native languages",
 
@@ -391,7 +390,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
   test "main form deletes and adds models in nested sub-forms" do
     survey = surveys(:programming)
-    form = SurveyFormFixture.new(survey)
+    form = SurveyForm.new(survey)
     params = {
       name: "Native languages",
 
