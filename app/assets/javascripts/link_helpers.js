@@ -1,21 +1,21 @@
 (function($) {
 
-  var create_new_id = function() {
+  var createNewResourceID = function() {
     return new Date().getTime();
   }
 
   $(document).on('click', '.add_fields', function(e) {
     e.preventDefault();
-    
+
     var $link = $(this);
     var assoc = $link.data('association');
     var content = $link.data('association-insertion-template');
     var insertionMethod = $link.data('association-insertion-method') || $link.data('association-insertion-position') || 'before';
     var insertionNode = $link.data('association-insertion-node');
     var insertionTraversal = $link.data('association-insertion-traversal');
-    var new_id = create_new_id();
+    var newId = createNewResourceID();
     var regex = new RegExp("new_" + assoc, "g");
-    var new_content = content.replace(regex, new_id);
+    var newContent = content.replace(regex, newId);
 
     if (insertionNode){
       if (insertionTraversal){
@@ -27,7 +27,7 @@
       insertionNode = $link.parent();
     }
 
-    var contentNode = $(new_content);
+    var contentNode = $(newContent);
     insertionNode.trigger('before-insert', [contentNode]);
 
     var addedContent = insertionNode[insertionMethod](contentNode);
@@ -39,22 +39,22 @@
     e.preventDefault();
 
     var $link = $(this);
-    var wrapper_class = $link.data('wrapper-class') || 'nested-fields';
-    var node_to_delete = $link.closest('.' + wrapper_class);
-    var trigger_node = node_to_delete.parent();
+    var wrapperClass = $link.data('wrapper-class') || 'nested-fields';
+    var nodeToDelete = $link.closest('.' + wrapperClass);
+    var triggerNode = nodeToDelete.parent();
 
-    trigger_node.trigger('before-remove', [node_to_delete]);
+    triggerNode.trigger('before-remove', [nodeToDelete]);
 
-    var timeout = trigger_node.data('remove-timeout') || 0;
+    var timeout = triggerNode.data('remove-timeout') || 0;
 
     setTimeout(function() {
       if ($link.hasClass('dynamic')) {
-          node_to_delete.remove();
+          nodeToDelete.remove();
       } else {
           $link.prev("input[type=hidden]").val("1");
-          node_to_delete.hide();
+          nodeToDelete.hide();
       }
-      trigger_node.trigger('after-remove', [node_to_delete]);
+      triggerNode.trigger('after-remove', [nodeToDelete]);
     }, timeout);
   });
 
