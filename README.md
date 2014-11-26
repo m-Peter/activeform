@@ -1,4 +1,4 @@
-# ActiveForm
+# Active Form
 
 [![Build Status](https://travis-ci.org/m-Peter/activeform.svg?branch=master)](https://travis-ci.org/m-Peter/activeform)
 [![Code Climate](https://codeclimate.com/github/m-Peter/activeform/badges/gpa.svg)](https://codeclimate.com/github/m-Peter/activeform)
