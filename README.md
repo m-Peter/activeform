@@ -20,9 +20,9 @@ Consider an example where you want to create/update a conference that can have m
 ```ruby
 class ConferenceForm < ActiveForm::Base
   self.main_model = :conference
-  
+
   attributes :name, :city
-  
+
   validates :name, :city, presence: true
 end
 ```
@@ -223,11 +223,11 @@ Use `fields_for` in a Rails environment to correctly setup the structure of para
 <%= form_for @conference_form |f| %>
   <%= f.text_field :name %>
   <%= f.text_field :city %>
-  
+
   <%= f.fields_for :speakers do |s| %>
     <%= s.text_field :name %>
     <%= s.text_field :occupation %>
-    
+
     <%= s.fields_for :presentation do |p| %>
       <%= p.text_field :topic %>
       <%= p.text_field :duration %>
@@ -321,6 +321,49 @@ And `app/views/conferences/_presentation_fields.html.erb` would be:
   <%= f.label :duration %><br>
   <%= f.text_field :duration %>
 </div>
+```
+
+## Plain Old Ruby Object Forms
+
+ActiveForm also can accept `ActiveModel::Model` instances as a model.
+
+Let's define the Feeback class class with `ActiveModel::Model` that will be used for customer's feedback:
+
+```ruby
+class Feedback
+  include ActiveModel::Model
+
+  attr_accessible :name, :body, :email
+
+  def save
+    FeedbackMailer.send_email(email, name, body)
+  end
+end
+```
+
+The form should look like this.
+
+```ruby
+class FeedbackForm < ActiveForm::Base
+  attributes :name, :body, :email, required: true
+end
+```
+
+And then in controller:
+
+```ruby
+class FeedbacksController
+  def create
+    feedback = Feedback.new
+    @feedback_form = FeedbackForm.new(feedback)
+    @feedback_form.submit(feedback_params)
+
+    if @feedback_form.save
+      head :ok
+    else
+      render json: @feedback_form.errors
+    end
+  end
 ```
 
 ## Demos
