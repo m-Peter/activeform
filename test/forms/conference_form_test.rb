@@ -2,6 +2,8 @@ require 'test_helper'
 
 class ConferenceFormTest < ActiveSupport::TestCase
   include ActiveModel::Lint::Tests
+  include ActionDispatch::TestProcess
+
   fixtures :conferences, :speakers, :presentations
 
   def setup
@@ -48,7 +50,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
     assert_respond_to presentations_form, :models
     assert_equal 2, presentations_form.models.size
-    
+
     presentations_form.each do |form|
       assert_instance_of ActiveForm::Form, form
       assert_instance_of Presentation, form.model
@@ -309,7 +311,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
     assert_equal "Rails OOP", form.speaker.presentations[1].topic
     assert_equal "1h", form.speaker.presentations[1].duration
     assert_equal 2, form.speaker.presentations.size
-    
+
     assert form.persisted?
   end
 
@@ -349,7 +351,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
     assert_equal "Rails Migrations", form.speaker.presentations[2].topic
     assert_equal "1h", form.speaker.presentations[2].duration
     assert_equal 3, form.speaker.presentations.size
-    
+
     assert form.persisted?
   end
 
@@ -440,5 +442,30 @@ class ConferenceFormTest < ActiveSupport::TestCase
 
   test "speaker sub-form responds to writer method" do
     assert_respond_to @form.speaker, :presentations_attributes=
+  end
+
+  test "accepts file" do
+    file = fixture_file_upload("demo.txt", "text/plain")
+
+    params = {
+      name: "GoGaruco",
+      city: "Golden State",
+      photo: file,
+
+      speaker_attributes: {
+        name: "John Doe",
+        occupation: "Developer",
+
+        presentations_attributes: {
+          "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id },
+          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id }
+        }
+      }
+    }
+
+    @form.submit(params)
+
+    assert @form.valid?
+    assert_equal @form.photo, "demo.txt"
   end
 end
