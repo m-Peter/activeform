@@ -327,7 +327,10 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "accepts file" do
-    @form.submit(photo: fixture_file_upload('demo.txt', 'text/plain')
+    @form.submit(merge_params(
+      photo: fixture_file_upload('demo.txt', 'text/plain'),
+      speaker_attributes: { name: 'Unique Name' }
+    ))
 
     assert @form.valid?
     assert_equal @form.photo, 'demo.txt'
@@ -352,5 +355,4 @@ class ConferenceFormTest < ActiveSupport::TestCase
         }
       }
     end
-  end
 end
