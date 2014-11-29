@@ -76,22 +76,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "main form syncs its model and the models in nested sub-forms" do
-    params = {
-      name: "Euruco",
-      city: "Athens",
-
-      speaker_attributes: {
-        name: "Peter Markou",
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Ruby OOP", duration: "1h" },
-          "1" => { topic: "Ruby Closures", duration: "1h" },
-        }
-      }
-    }
-
-    @form.submit(params)
+    @form.submit(default_params)
 
     assert_equal "Euruco", @form.name
     assert_equal "Athens", @form.city
@@ -105,41 +90,12 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "main form validates itself" do
-    params = {
-      name: "Euruco",
-      city: "Athens",
-
-      speaker_attributes: {
-        name: "Petros Markou",
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Ruby OOP", duration: "1h" },
-          "1" => { topic: "Ruby Closures", duration: "1h" },
-        }
-      }
-    }
-
-    @form.submit(params)
-
+    @form.submit(merge_params(speaker_attributes: { name: 'Unique Name' }))
     assert @form.valid?
+  end
 
-    params = {
-      name: nil,
-      city: nil,
-
-      speaker_attributes: {
-        name: nil,
-        occupation: nil,
-
-        presentations_attributes: {
-          "0" => { topic: nil, duration: nil },
-          "1" => { topic: nil, duration: nil },
-        }
-      }
-    }
-
-    @form.submit(params)
+  test "validation with empty params" do
+    @form.submit({})
 
     assert_not @form.valid?
     assert_includes @form.errors.messages[:name], "can't be blank"
@@ -153,23 +109,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "main form validates the models" do
-    conference = conferences(:ruby)
-    params = {
-      name: conference.name,
-      city: "Athens",
-
-      speaker_attributes: {
-        name: conference.speaker.name,
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Ruby OOP", duration: "1h" },
-          "1" => { topic: "Ruby Closures", duration: "1h" },
-        }
-      }
-    }
-
-    @form.submit(params)
+    @form.submit(speaker_attributes: { name: conferences(:ruby).speaker.name })
 
     assert_not @form.valid?
     assert_includes @form.errors.messages[:name], "has already been taken"
@@ -198,22 +138,7 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "main form saves its model and the models in nested sub-forms" do
-    params = {
-      name: "Euruco",
-      city: "Athens",
-
-      speaker_attributes: {
-        name: "Petros Markou",
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Ruby OOP", duration: "1h" },
-          "1" => { topic: "Ruby Closures", duration: "1h" },
-        }
-      }
-    }
-
-    @form.submit(params)
+    @form.submit(merge_params(speaker_attributes: { name: 'Petros Markou' }))
 
     assert_difference(['Conference.count', 'Speaker.count']) do
       @form.save
@@ -237,23 +162,12 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "main form saves its model and dynamically added models in nested sub-forms" do
-    params = {
-      name: "Euruco",
-      city: "Athens",
-
-      speaker_attributes: {
-        name: "Petros Markou",
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Ruby OOP", duration: "1h" },
-          "1" => { topic: "Ruby Closures", duration: "1h" },
-          "1404292088779" => { topic: "Ruby Blocks", duration: "1h" }
-        }
+    @form.submit(merge_params(speaker_attributes: {
+      name: "Petros Markou",
+      presentations_attributes: {
+        "1404292088779" => { topic: "Ruby Blocks", duration: "1h" }
       }
-    }
-
-    @form.submit(params)
+    }))
 
     assert_difference(['Conference.count', 'Speaker.count']) do
       @form.save
@@ -281,30 +195,22 @@ class ConferenceFormTest < ActiveSupport::TestCase
   test "main form updates its model and the models in nested sub-forms" do
     conference = conferences(:ruby)
     form = ConferenceForm.new(conference)
-    params = {
-      name: "GoGaruco",
-      city: "Golden State",
-
+    form.submit(merge_params(
       speaker_attributes: {
-        name: "John Doe",
-        occupation: "Developer",
-
         presentations_attributes: {
           "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id },
-          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id },
+          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id }
         }
       }
-    }
-
-    form.submit(params)
+    ))
 
     assert_difference(['Conference.count', 'Speaker.count', 'Presentation.count'], 0) do
       form.save
     end
 
-    assert_equal "GoGaruco", form.name
-    assert_equal "Golden State", form.city
-    assert_equal "John Doe", form.speaker.name
+    assert_equal "Euruco", form.name
+    assert_equal "Athens", form.city
+    assert_equal "Peter Markou", form.speaker.name
     assert_equal "Developer", form.speaker.occupation
     assert_equal "Rails Patterns", form.speaker.presentations[0].topic
     assert_equal "1h", form.speaker.presentations[0].duration
@@ -318,31 +224,23 @@ class ConferenceFormTest < ActiveSupport::TestCase
   test "main form updates its model and saves dynamically added models in nested sub-forms" do
     conference = conferences(:ruby)
     form = ConferenceForm.new(conference)
-    params = {
-      name: "GoGaruco",
-      city: "Golden State",
-
+    form.submit(merge_params(
       speaker_attributes: {
-        name: "John Doe",
-        occupation: "Developer",
-
         presentations_attributes: {
           "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id },
           "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id },
           "1404292088779" => { topic: "Rails Migrations", duration: "1h" }
         }
       }
-    }
-
-    form.submit(params)
+    ))
 
     assert_difference(['Conference.count', 'Speaker.count'], 0) do
       form.save
     end
 
-    assert_equal "GoGaruco", form.name
-    assert_equal "Golden State", form.city
-    assert_equal "John Doe", form.speaker.name
+    assert_equal "Euruco", form.name
+    assert_equal "Athens", form.city
+    assert_equal "Peter Markou", form.speaker.name
     assert_equal "Developer", form.speaker.occupation
     assert_equal "Rails Patterns", form.speaker.presentations[0].topic
     assert_equal "1h", form.speaker.presentations[0].duration
@@ -358,22 +256,14 @@ class ConferenceFormTest < ActiveSupport::TestCase
   test "main form deletes models in nested sub-forms" do
     conference = conferences(:ruby)
     form = ConferenceForm.new(conference)
-    params = {
-      name: "GoGaruco",
-      city: "Golden State",
-
+    form.submit(merge_params(
       speaker_attributes: {
-        name: "John Doe",
-        occupation: "Developer",
-
         presentations_attributes: {
           "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id, "_destroy" => "1" },
-          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id },
+          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id }
         }
       }
-    }
-
-    form.submit(params)
+    ))
 
     assert conference.speaker.presentations[1].marked_for_destruction?
 
@@ -381,9 +271,9 @@ class ConferenceFormTest < ActiveSupport::TestCase
       form.save
     end
 
-    assert_equal "GoGaruco", form.name
-    assert_equal "Golden State", form.city
-    assert_equal "John Doe", form.speaker.name
+    assert_equal "Euruco", form.name
+    assert_equal "Athens", form.city
+    assert_equal "Peter Markou", form.speaker.name
     assert_equal "Developer", form.speaker.occupation
     assert_equal "Rails Patterns", form.speaker.presentations[0].topic
     assert_equal "1h", form.speaker.presentations[0].duration
@@ -398,31 +288,23 @@ class ConferenceFormTest < ActiveSupport::TestCase
   test "main form deletes and adds models in nested sub-forms" do
     conference = conferences(:ruby)
     form = ConferenceForm.new(conference)
-    params = {
-      name: "GoGaruco",
-      city: "Golden State",
-
+    form.submit(merge_params(
       speaker_attributes: {
-        name: "John Doe",
-        occupation: "Developer",
-
         presentations_attributes: {
           "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id, "_destroy" => "1" },
           "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id },
           "1404292088779" => { topic: "Rails Testing", duration: "2h" }
         }
       }
-    }
-
-    form.submit(params)
+    ))
 
     assert_difference(['Conference.count', 'Speaker.count'], 0) do
       form.save
     end
 
-    assert_equal "GoGaruco", form.name
-    assert_equal "Golden State", form.city
-    assert_equal "John Doe", form.speaker.name
+    assert_equal "Euruco", form.name
+    assert_equal "Athens", form.city
+    assert_equal "Peter Markou", form.speaker.name
     assert_equal "Developer", form.speaker.occupation
     assert_equal "Rails Patterns", form.speaker.presentations[0].topic
     assert_equal "1h", form.speaker.presentations[0].duration
@@ -445,27 +327,30 @@ class ConferenceFormTest < ActiveSupport::TestCase
   end
 
   test "accepts file" do
-    file = fixture_file_upload("demo.txt", "text/plain")
-
-    params = {
-      name: "GoGaruco",
-      city: "Golden State",
-      photo: file,
-
-      speaker_attributes: {
-        name: "John Doe",
-        occupation: "Developer",
-
-        presentations_attributes: {
-          "0" => { topic: "Rails OOP", duration: "1h", id: presentations(:ruby_oop).id },
-          "1" => { topic: "Rails Patterns", duration: "1h", id: presentations(:ruby_closures).id }
-        }
-      }
-    }
-
-    @form.submit(params)
+    @form.submit(photo: fixture_file_upload('demo.txt', 'text/plain')
 
     assert @form.valid?
-    assert_equal @form.photo, "demo.txt"
+    assert_equal @form.photo, 'demo.txt'
+  end
+
+  private
+    def merge_params(params)
+      default_params.deep_merge(params)
+    end
+
+    def default_params
+      @default_params ||= {
+        name: "Euruco", city: "Athens",
+
+        speaker_attributes: {
+          name: "Peter Markou", occupation: "Developer",
+
+          presentations_attributes: {
+            "0" => { topic: "Ruby OOP", duration: "1h" },
+            "1" => { topic: "Ruby Closures", duration: "1h" },
+          }
+        }
+      }
+    end
   end
 end
