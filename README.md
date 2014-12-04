@@ -1,7 +1,6 @@
 # Active Form
 
-[![Build Status](https://travis-ci.org/m-Peter/activeform.svg?branch=master)](https://travis-ci.org/m-Peter/activeform)
-[![Code Climate](https://codeclimate.com/github/m-Peter/activeform/badges/gpa.svg)](https://codeclimate.com/github/m-Peter/activeform)
+[![Build Status](https://api.travis-ci.org/rails/activeform.svg?branch=master)](https://travis-ci.org/rails/activeform)
 
 Set your models free from the `accepts_nested_attributes_for` helper. Active Form provides an object-oriented approach to represent your forms by building a form object, rather than relying on Active Record internals for doing this. Form objects provide an API to describe the models involved in the form, their attributes and validations. A form object deals with create/update actions of nested objects in a more seamless way.
 
