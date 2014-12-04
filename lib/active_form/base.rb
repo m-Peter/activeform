@@ -5,22 +5,28 @@ module ActiveForm
 
     define_model_callbacks :save, only: [:after]
     after_save :update_form_models
-    
+
     delegate :persisted?, :to_model, :to_key, :to_param, :to_partial_path, to: :model
-    attr_reader :model, :forms
-    
+    attr_reader :model, :forms, :attrs, :attr_list, :whitelist_failures
+
     def initialize(model)
       @model = model
       @forms = []
+      @whitelist_failures = []
+      @attr_list = AttributeWhitelist.new(attrs)
       populate_forms
     end
-    
+
     def submit(params)
       params.each do |key, value|
         if nested_params?(value)
           fill_association_with_attributes(key, value)
         else
-          send("#{key}=", value)
+          if @attr_list.allows?(key.to_sym)
+            send("#{key}=", value)
+          else
+            @whitelist_failures << "unpermitted attribute: #{key}"
+          end
         end
       end
     end
@@ -48,12 +54,15 @@ module ActiveForm
 
       collect_errors_from(model)
       aggregate_form_errors
-      
+
       errors.empty?
     end
 
     class << self
-      attr_accessor :main_class, :main_model
+      attr_accessor :main_class
+      attr_writer :main_model
+      attr_reader :listed_attrs
+
       delegate :reflect_on_association, to: :main_class
 
       def attributes(*names)
@@ -66,10 +75,29 @@ module ActiveForm
         names.each do |attribute|
           delegate attribute, "#{attribute}=", to: :model
         end
+        if listed_attrs.empty?
+          @listed_attrs = names
+        else
+          @listed_attrs += names
+        end
+        
+        class_eval %Q{
+          def attrs
+            @attrs = #{listed_attrs}
+          end
+        }
+      end
+
+      def listed_attrs
+        @listed_attrs ||= []
       end
 
       def main_class
-        @main_class = main_model.to_s.camelize.constantize
+        @main_class ||= main_model.to_s.camelize.constantize
+      end
+
+      def main_model
+        @main_model ||= name.sub(/Form$/, '').singularize
       end
 
       alias_method :attribute, :attributes
