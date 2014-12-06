@@ -15,11 +15,6 @@ class FormWithAttributeWhitelistTest < ActiveSupport::TestCase
     assert_equal @user, @form.model
   end
 
-  test "contains attrs array" do
-    assert_equal [:name, :age, :gender], @form.attrs
-    assert_equal false, @form.attrs.include?(:funny)
-  end
-
   test "sync the model with submitted data" do
     params = {
       name: "Peters",
@@ -33,7 +28,5 @@ class FormWithAttributeWhitelistTest < ActiveSupport::TestCase
     assert_equal "Peters", @form.name
     assert_equal 23, @form.age
     assert_equal 0, @form.gender
-
-    assert_equal ["unpermitted attribute: funny"], @form.whitelist_failures
   end
 end
