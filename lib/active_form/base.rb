@@ -1,3 +1,5 @@
+require 'set'
+
 module ActiveForm
   class Base
     include ActiveModel::Model
@@ -7,13 +9,14 @@ module ActiveForm
     after_save :update_form_models
 
     delegate :persisted?, :to_model, :to_key, :to_param, :to_partial_path, to: :model
-    attr_reader :model, :forms, :attrs, :attr_list, :whitelist_failures
+    attr_reader :model, :forms, :permitted_attributes
 
     def initialize(model)
       @model = model
       @forms = []
-      @whitelist_failures = []
-      @attr_list = AttributeWhitelist.new(attrs)
+      @permitted_attributes = Set.new(attrs)
+      @permitted_attributes.add(:id)
+      @permitted_attributes.add(:_destroy)
       populate_forms
     end
 
@@ -22,10 +25,8 @@ module ActiveForm
         if nested_params?(value)
           fill_association_with_attributes(key, value)
         else
-          if @attr_list.allows?(key.to_sym)
+          if @permitted_attributes.include?(key.to_sym)
             send("#{key}=", value)
-          else
-            @whitelist_failures << "unpermitted attribute: #{key}"
           end
         end
       end
