@@ -14,5 +14,3 @@ if ActiveSupport::TestCase.method_defined?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
 end
 
-require "rails/generators/test_case"
-require "generators/active_form/install_generator"
