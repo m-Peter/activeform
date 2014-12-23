@@ -106,10 +106,10 @@ class TwoNestingLevelFormTest < ActiveSupport::TestCase
     @form.submit(params)
 
     assert_not @form.valid?
-    assert_includes @form.errors.messages[:title], "can't be blank"
-    assert_includes @form.errors.messages[:length], "can't be blank"
-    assert_includes @form.errors.messages[:name], "can't be blank"
-    assert_includes @form.errors.messages[:studio], "can't be blank"
+    assert_includes @form.errors[:title], "can't be blank"
+    assert_includes @form.errors[:length], "can't be blank"
+    assert_includes @form.errors["artist.name"], "can't be blank"
+    assert_includes @form.errors["artist.producer.studio"], "can't be blank"
 
     @form.title = "Diamonds"
     @form.length = "355"
@@ -135,14 +135,14 @@ class TwoNestingLevelFormTest < ActiveSupport::TestCase
         }
       }
     }
-    
+
     @form.submit(params)
 
     assert_not @form.valid?
-    assert_includes @form.errors.messages[:title], "has already been taken"
-    assert_includes @form.errors.messages[:name], "has already been taken"
-    assert_equal 2, @form.errors.messages[:name].size
-    assert_includes @form.errors.messages[:studio], "has already been taken"
+    assert_includes @form.errors[:title], "has already been taken"
+    assert_includes @form.errors["artist.name"], "has already been taken"
+    assert_includes @form.errors["artist.producer.name"], "has already been taken"
+    assert_includes @form.errors["artist.producer.studio"], "has already been taken"
   end
 
   test "main form saves its model and the models in nested sub-forms" do

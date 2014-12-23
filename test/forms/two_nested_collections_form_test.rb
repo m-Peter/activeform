@@ -46,7 +46,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
     questions_form = @form.forms.first
 
     assert_equal 1, questions_form.forms.size
-    
+
     @form.questions.each do |question_form|
       assert_instance_of ActiveForm::Form, question_form
       assert_instance_of Question, question_form.model
@@ -66,7 +66,7 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
 
     assert_respond_to questions_form, :models
     assert_equal 1, questions_form.models.size
-    
+
     questions_form.each do |form|
       assert_instance_of ActiveForm::Form, form
       assert_instance_of Question, form.model
@@ -164,8 +164,10 @@ class TwoNestedCollectionsFormTest < ActiveSupport::TestCase
     @form.submit(params)
 
     assert_not @form.valid?
-    assert_includes @form.errors.messages[:name], "can't be blank"
-    assert_includes @form.errors.messages[:content], "can't be blank"
+
+    assert_includes @form.errors[:name], "can't be blank"
+    assert_includes @form.errors["questions.content"], "can't be blank"
+    assert_includes @form.errors["questions.answers.content"], "can't be blank"
   end
 
   test "main form validates the model" do
