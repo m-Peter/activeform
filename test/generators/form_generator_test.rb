@@ -1,4 +1,5 @@
-require "rails/generators/test_case"
+require 'test_helper'
+require 'rails/generators/test_case'
 require 'rails/generators/form/form_generator'
 
 class FormGeneratorTest < Rails::Generators::TestCase
