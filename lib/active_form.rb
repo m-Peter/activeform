@@ -7,13 +7,6 @@ require 'active_form/view_helpers'
 
 module ActiveForm
   class Engine < ::Rails::Engine
-
-    config.before_initialize do
-      if config.action_view.javascript_expansions
-        config.action_view.javascript_expansions[:link_helpers] = %w(link_helpers)
-      end
-    end
-
     initializer "active_form.initialize" do |app|
       ActiveSupport.on_load :action_view do
         include ActiveForm::ViewHelpers
