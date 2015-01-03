@@ -15,7 +15,9 @@ module ActiveForm
     end
 
     initializer "active_form.initialize" do |app|
-      ActionView::Base.send :include, ActiveForm::ViewHelpers
+      ActiveSupport.on_load :action_view do
+        include ActiveForm::ViewHelpers
+      end
     end
   end
 end
