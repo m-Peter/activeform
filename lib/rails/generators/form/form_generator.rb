@@ -16,10 +16,9 @@ module Rails
         File.dirname(__FILE__)
       end
 
-      def create_job_file
+      def create_form_file
         template 'form.rb', File.join('app/forms', class_path, "#{file_name}_form.rb")
       end
-
     end
   end
 end
