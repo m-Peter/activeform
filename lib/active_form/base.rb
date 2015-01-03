@@ -53,15 +53,14 @@ module ActiveForm
     end
 
     class << self
-      attr_accessor :main_class
-      attr_writer :main_model
+      attr_writer :main_class, :main_model
       delegate :reflect_on_association, to: :main_class
 
       def attributes(*names)
         options = names.pop if names.last.is_a?(Hash)
 
         if options && options[:required]
-          validates_presence_of *names
+          validates_presence_of(*names)
         end
 
         names.each do |attribute|

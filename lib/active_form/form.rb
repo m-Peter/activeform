@@ -42,7 +42,7 @@ module ActiveForm
         options = arguments.pop if arguments.last.is_a?(Hash)
 
         if options && options[:required]
-          validates_presence_of *arguments
+          validates_presence_of(*arguments)
         end
 
         arguments.each do |attribute|
@@ -94,7 +94,7 @@ module ActiveForm
     def get_model(assoc_name)
       if represents?(assoc_name)
         form = Form.new(association_name, parent, proc)
-        form.instance_eval &proc
+        form.instance_eval(&proc)
         form
       else
         form = find_form_by_assoc_name(assoc_name)
