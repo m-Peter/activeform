@@ -12,6 +12,7 @@ module ActiveForm
       @forms = []
       @proc = proc
       enable_autosave
+      instance_eval &proc
     end
 
     def class
@@ -93,9 +94,7 @@ module ActiveForm
 
     def get_model(assoc_name)
       if represents?(assoc_name)
-        form = Form.new(association_name, parent, proc)
-        form.instance_eval(&proc)
-        form
+        Form.new(association_name, parent, proc)
       else
         form = find_form_by_assoc_name(assoc_name)
         form.get_model(assoc_name)
