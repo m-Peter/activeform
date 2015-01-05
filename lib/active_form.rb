@@ -5,6 +5,7 @@ module ActiveForm
   autoload :FormDefinition, 'active_form/form_definition'
   autoload :TooManyRecords, 'active_form/too_many_records'
   autoload :ViewHelpers, 'active_form/view_helpers'
+  autoload :FormHelpers, 'active_form/form_helpers'
 
   class Engine < ::Rails::Engine
     initializer "active_form.initialize" do |app|

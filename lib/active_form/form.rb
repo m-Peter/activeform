@@ -1,6 +1,7 @@
 module ActiveForm
   class Form
     include ActiveModel::Validations
+    include FormHelpers
 
     delegate :id, :_destroy, :persisted?, to: :model
     attr_reader :association_name, :parent, :model, :forms, :proc
@@ -83,13 +84,7 @@ module ActiveForm
         @model = parent.send("build_#{association_name}") unless call_reject_if(params_for_current_scope(params))
       end
 
-      params.each do |key, value|
-        if nested_params?(value)
-          fill_association_with_attributes(key, value)
-        else
-          model.send("#{key}=", value)
-        end
-      end
+      super
     end
 
     def get_model(assoc_name)
@@ -105,46 +100,15 @@ module ActiveForm
       model.mark_for_destruction
     end
 
-    def valid?
-      super
-      model.valid?
-
-      collect_errors_from(model)
-      aggregate_form_errors
-
-      errors.empty?
-    end
-
     def represents?(assoc_name)
       association_name.to_s == assoc_name.to_s
     end
 
     private
 
-    ATTRIBUTES_KEY_REGEXP = /^(.+)_attributes$/
-
     def enable_autosave
       reflection = association_reflection
       reflection.autosave = true
-    end
-
-    def fill_association_with_attributes(association, attributes)
-      assoc_name = find_association_name_in(association).to_sym
-      form = find_form_by_assoc_name(assoc_name)
-
-      form.submit(attributes)
-    end
-
-    def find_form_by_assoc_name(assoc_name)
-      forms.select { |form| form.represents?(assoc_name) }.first
-    end
-
-    def nested_params?(value)
-      value.is_a?(Hash)
-    end
-
-    def find_association_name_in(key)
-      ATTRIBUTES_KEY_REGEXP.match(key)[1]
     end
 
     def association_reflection
@@ -184,23 +148,5 @@ module ActiveForm
       end
     end
 
-    def aggregate_form_errors
-      forms.each do |form|
-        form.valid?
-        collect_errors_from(form)
-      end
-    end
-
-    def collect_errors_from(validatable_object)
-      validatable_object.errors.each do |attribute, error|
-        key = if validatable_object.respond_to?(:association_name)
-          "#{validatable_object.association_name}.#{attribute}"
-        else
-          attribute
-        end
-        errors.add(key, error)
-      end
-    end
   end
-
 end
