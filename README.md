@@ -1,7 +1,6 @@
 # Active Form
 
-[![Build Status](https://travis-ci.org/m-Peter/activeform.svg?branch=master)](https://travis-ci.org/m-Peter/activeform)
-[![Code Climate](https://codeclimate.com/github/m-Peter/activeform/badges/gpa.svg)](https://codeclimate.com/github/m-Peter/activeform)
+[![Build Status](https://api.travis-ci.org/rails/activeform.svg?branch=master)](https://travis-ci.org/rails/activeform)
 
 Set your models free from the `accepts_nested_attributes_for` helper. Active Form provides an object-oriented approach to represent your forms by building a form object, rather than relying on Active Record internals for doing this. Form objects provide an API to describe the models involved in the form, their attributes and validations. A form object deals with create/update actions of nested objects in a more seamless way.
 
@@ -243,7 +242,7 @@ Active Form comes with two helpers to deal with this functionality:
 1. `link_to_add_association` will display a link that renders fields to create a new object.
 2. `link_to_remove_association` will display a link to remove a existing/dynamic object.
 
-In order to use it you have to insert this line: `//= require link_helpers` to your `app/assets/javascript/application.js` file.
+In order to use it you have to insert this line: `//= require active_form` to your `app/assets/javascript/application.js` file.
 
 In our `ConferenceForm` we can dynamically create/remove `Speaker` objects. To do that we would write in the `app/views/conferences/_form.html.erb` partial:
 

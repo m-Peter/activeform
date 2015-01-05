@@ -29,9 +29,7 @@ module ActiveForm
     end
 
     def get_model(assoc_name)
-      form = Form.new(association_name, parent, proc)
-      form.instance_eval &proc
-      form
+      Form.new(association_name, parent, proc)
     end
 
     def valid?
@@ -134,11 +132,10 @@ module ActiveForm
 
     def fetch_models
       associated_records = parent.send(association_name)
-      
+
       associated_records.each do |model|
         form = Form.new(association_name, parent, proc, model)
         forms << form
-        form.instance_eval &proc
       end
     end
 
@@ -146,7 +143,6 @@ module ActiveForm
       records.times do
         form = Form.new(association_name, parent, proc)
         forms << form
-        form.instance_eval &proc
       end
     end
 
@@ -173,7 +169,6 @@ module ActiveForm
     def create_form
       new_form = Form.new(association_name, parent, proc)
       forms << new_form
-      new_form.instance_eval &proc
       new_form
     end
   end

@@ -4,7 +4,7 @@ require_relative '../fixtures/user_with_email_form_fixture'
 
 class NestedModelRenderingTest < ActionView::TestCase
   fixtures :all
-  
+
   def form_for(*)
     @output_buffer = super
   end
@@ -26,22 +26,22 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/users"/, output_buffer
-    assert_match /class="new_user"/, output_buffer
-    assert_match /id="new_user"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users"/, output_buffer)
+    assert_match(/class="new_user"/, output_buffer)
+    assert_match(/id="new_user"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Create User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Create User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a existing instance of UserFormFixture" do
@@ -63,22 +63,22 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = user.id
 
-    assert_match /action="\/users\/#{id}"/, output_buffer
-    assert_match /class="edit_user"/, output_buffer
-    assert_match /id="edit_user_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users\/#{id}"/, output_buffer)
+    assert_match(/class="edit_user"/, output_buffer)
+    assert_match(/id="edit_user_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option selected="selected" value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option selected="selected" value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Update User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a new instance of UserWithEmailFormFixture" do
@@ -103,25 +103,25 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/users"/, output_buffer
-    assert_match /class="new_user"/, output_buffer
-    assert_match /id="new_user"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users"/, output_buffer)
+    assert_match(/class="new_user"/, output_buffer)
+    assert_match(/id="new_user"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<label for="user_email_attributes_address">Address<\/label>/, output_buffer
-    assert_match /<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="user_email_attributes_address">Address<\/label>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Create User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Create User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a existing instance of UserWithEmailFormFixture" do
@@ -148,26 +148,26 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = user.id
 
-    assert_match /action="\/users\/#{id}"/, output_buffer
-    assert_match /class="edit_user"/, output_buffer
-    assert_match /id="edit_user_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users\/#{id}"/, output_buffer)
+    assert_match(/class="edit_user"/, output_buffer)
+    assert_match(/id="edit_user_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option selected="selected" value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option selected="selected" value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<label for="user_email_attributes_address">Address<\/label>/, output_buffer
-    assert_match /<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" value="#{user_form.email.address}" \/>/, output_buffer
-    assert_match /<input id="user_email_attributes_id" name="user\[email_attributes\]\[id\]" type="hidden" value="#{user_form.email.id}" \/>/, output_buffer
+    assert_match(/<label for="user_email_attributes_address">Address<\/label>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" value="#{user_form.email.address}" \/>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_id" name="user\[email_attributes\]\[id\]" type="hidden" value="#{user_form.email.id}" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Update User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a new instance of UserWithEmailAndProfileFormFixture" do
@@ -180,7 +180,7 @@ class NestedModelRenderingTest < ActionView::TestCase
 
       concat f.label(:age)
       concat f.number_field(:age)
-      
+
       concat f.label(:gender)
       concat f.select(:gender, User.get_genders_dropdown)
 
@@ -200,30 +200,30 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/users"/, output_buffer
-    assert_match /class="new_user"/, output_buffer
-    assert_match /id="new_user"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users"/, output_buffer)
+    assert_match(/class="new_user"/, output_buffer)
+    assert_match(/id="new_user"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/input id="user_age" name="user\[age\]" type="number" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<label for="user_email_attributes_address">Address<\/label>/, output_buffer
-    assert_match /<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="user_email_attributes_address">Address<\/label>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" \/>/, output_buffer)
 
-    assert_match /<label for="user_profile_attributes_twitter_name">Twitter name<\/label>/, output_buffer
-    assert_match /<input id="user_profile_attributes_twitter_name" name="user\[profile_attributes\]\[twitter_name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="user_profile_attributes_github_name">Github name<\/label>/, output_buffer
-    assert_match /<input id="user_profile_attributes_github_name" name="user\[profile_attributes\]\[github_name\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="user_profile_attributes_twitter_name">Twitter name<\/label>/, output_buffer)
+    assert_match(/<input id="user_profile_attributes_twitter_name" name="user\[profile_attributes\]\[twitter_name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="user_profile_attributes_github_name">Github name<\/label>/, output_buffer)
+    assert_match(/<input id="user_profile_attributes_github_name" name="user\[profile_attributes\]\[github_name\]" type="text" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Create User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Create User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly an existing instance of UserWithEmailAndProfileFormFixture" do
@@ -258,32 +258,32 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = user.id
 
-    assert_match /action="\/users\/#{id}"/, output_buffer
-    assert_match /class="edit_user"/, output_buffer
-    assert_match /id="edit_user_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/users\/#{id}"/, output_buffer)
+    assert_match(/class="edit_user"/, output_buffer)
+    assert_match(/id="edit_user_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="user_name">Name<\/label>/, output_buffer
-    assert_match /<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer
-    assert_match /<label for="user_age">Age<\/label>/, output_buffer
-    assert_match /<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer
-    assert_match /<label for="user_gender">Gender<\/label>/, output_buffer
-    assert_match /<select id="user_gender" name="user\[gender\]">/, output_buffer
-    assert_match /<option selected="selected" value="0">Male<\/option>/, output_buffer
-    assert_match /<option value="1">Female<\/option>/, output_buffer
-    assert_match /<\/select>/, output_buffer
+    assert_match(/<label for="user_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="user_name" name="user\[name\]" type="text" value="#{user_form.name}" \/>/, output_buffer)
+    assert_match(/<label for="user_age">Age<\/label>/, output_buffer)
+    assert_match(/<input id="user_age" name="user\[age\]" type="number" value="#{user_form.age}" \/>/, output_buffer)
+    assert_match(/<label for="user_gender">Gender<\/label>/, output_buffer)
+    assert_match(/<select id="user_gender" name="user\[gender\]">/, output_buffer)
+    assert_match(/<option selected="selected" value="0">Male<\/option>/, output_buffer)
+    assert_match(/<option value="1">Female<\/option>/, output_buffer)
+    assert_match(/<\/select>/, output_buffer)
 
-    assert_match /<label for="user_email_attributes_address">Address<\/label>/, output_buffer
-    assert_match /<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" value="#{user_form.email.address}" \/>/, output_buffer
-    assert_match /<input id="user_email_attributes_id" name="user\[email_attributes\]\[id\]" type="hidden" value="#{user_form.email.id}" \/>/, output_buffer
+    assert_match(/<label for="user_email_attributes_address">Address<\/label>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_address" name="user\[email_attributes\]\[address\]" type="text" value="#{user_form.email.address}" \/>/, output_buffer)
+    assert_match(/<input id="user_email_attributes_id" name="user\[email_attributes\]\[id\]" type="hidden" value="#{user_form.email.id}" \/>/, output_buffer)
 
-    assert_match /<label for="user_profile_attributes_twitter_name">Twitter name<\/label>/, output_buffer
-    assert_match /<input id="user_profile_attributes_twitter_name" name="user\[profile_attributes\]\[twitter_name\]" type="text" value="#{user_form.profile.twitter_name}" \/>/, output_buffer
-    assert_match /<label for="user_profile_attributes_github_name">Github name<\/label>/, output_buffer
-    assert_match /<input id="user_profile_attributes_github_name" name="user\[profile_attributes\]\[github_name\]" type="text" value="#{user_form.profile.github_name}" \/>/, output_buffer
-    assert_match /<input id="user_profile_attributes_id" name="user\[profile_attributes\]\[id\]" type="hidden" value="#{user_form.profile.id}" \/>/, output_buffer
+    assert_match(/<label for="user_profile_attributes_twitter_name">Twitter name<\/label>/, output_buffer)
+    assert_match(/<input id="user_profile_attributes_twitter_name" name="user\[profile_attributes\]\[twitter_name\]" type="text" value="#{user_form.profile.twitter_name}" \/>/, output_buffer)
+    assert_match(/<label for="user_profile_attributes_github_name">Github name<\/label>/, output_buffer)
+    assert_match(/<input id="user_profile_attributes_github_name" name="user\[profile_attributes\]\[github_name\]" type="text" value="#{user_form.profile.github_name}" \/>/, output_buffer)
+    assert_match(/<input id="user_profile_attributes_id" name="user\[profile_attributes\]\[id\]" type="hidden" value="#{user_form.profile.id}" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Update User" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update User" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a new instance of SongsFormFixture" do
@@ -303,7 +303,7 @@ class NestedModelRenderingTest < ActionView::TestCase
         concat artist_fields.label(:name)
         concat artist_fields.text_field(:name)
 
-        concat artist_fields.fields_for(:producer, producer) { |producer_fields| 
+        concat artist_fields.fields_for(:producer, producer) { |producer_fields|
           concat producer_fields.label(:name)
           concat producer_fields.text_field(:name)
 
@@ -315,25 +315,25 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/songs"/, output_buffer
-    assert_match /class="new_song"/, output_buffer
-    assert_match /id="new_song"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/songs"/, output_buffer)
+    assert_match(/class="new_song"/, output_buffer)
+    assert_match(/id="new_song"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="song_title">Title<\/label>/, output_buffer
-    assert_match /<input id="song_title" name="song\[title\]" type="text" \/>/, output_buffer
-    assert_match /<label for="song_length">Length<\/label>/, output_buffer
-    assert_match /input id="song_length" name="song\[length\]" type="text" \/>/, output_buffer
-    
-    assert_match /<label for="song_artist_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_name" name="song\[artist_attributes\]\[name\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="song_title">Title<\/label>/, output_buffer)
+    assert_match(/<input id="song_title" name="song\[title\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="song_length">Length<\/label>/, output_buffer)
+    assert_match(/input id="song_length" name="song\[length\]" type="text" \/>/, output_buffer)
 
-    assert_match /<label for="song_artist_attributes_producer_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_producer_attributes_name" name="song\[artist_attributes\]\[producer_attributes\]\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="song_artist_attributes_producer_attributes_studio">Studio<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_producer_attributes_studio" name="song\[artist_attributes\]\[producer_attributes\]\[studio\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="song_artist_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_name" name="song\[artist_attributes\]\[name\]" type="text" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Create Song" \/>/, output_buffer
+    assert_match(/<label for="song_artist_attributes_producer_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_producer_attributes_name" name="song\[artist_attributes\]\[producer_attributes\]\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="song_artist_attributes_producer_attributes_studio">Studio<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_producer_attributes_studio" name="song\[artist_attributes\]\[producer_attributes\]\[studio\]" type="text" \/>/, output_buffer)
+
+    assert_match(/<input name="commit" type="submit" value="Create Song" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a existing instance of SongsFormFixture" do
@@ -353,7 +353,7 @@ class NestedModelRenderingTest < ActionView::TestCase
         concat artist_fields.label(:name)
         concat artist_fields.text_field(:name)
 
-        concat artist_fields.fields_for(:producer, producer) { |producer_fields| 
+        concat artist_fields.fields_for(:producer, producer) { |producer_fields|
           concat producer_fields.label(:name)
           concat producer_fields.text_field(:name)
 
@@ -367,27 +367,27 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = song.id
 
-    assert_match /action="\/songs\/#{id}"/, output_buffer
-    assert_match /class="edit_song"/, output_buffer
-    assert_match /id="edit_song_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/songs\/#{id}"/, output_buffer)
+    assert_match(/class="edit_song"/, output_buffer)
+    assert_match(/id="edit_song_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="song_title">Title<\/label>/, output_buffer
-    assert_match /<input id="song_title" name="song\[title\]" type="text" value="#{song_form.title}" \/>/, output_buffer
-    assert_match /<label for="song_length">Length<\/label>/, output_buffer
-    assert_match /input id="song_length" name="song\[length\]" type="text" value="#{song_form.length}" \/>/, output_buffer
+    assert_match(/<label for="song_title">Title<\/label>/, output_buffer)
+    assert_match(/<input id="song_title" name="song\[title\]" type="text" value="#{song_form.title}" \/>/, output_buffer)
+    assert_match(/<label for="song_length">Length<\/label>/, output_buffer)
+    assert_match(/input id="song_length" name="song\[length\]" type="text" value="#{song_form.length}" \/>/, output_buffer)
 
-    assert_match /<label for="song_artist_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_name" name="song\[artist_attributes\]\[name\]" type="text" value="#{artist.name}" \/>/, output_buffer
-    assert_match /<input id="song_artist_attributes_id" name="song\[artist_attributes\]\[id\]" type="hidden" value="#{artist.id}" \/>/, output_buffer
+    assert_match(/<label for="song_artist_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_name" name="song\[artist_attributes\]\[name\]" type="text" value="#{artist.name}" \/>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_id" name="song\[artist_attributes\]\[id\]" type="hidden" value="#{artist.id}" \/>/, output_buffer)
 
-    assert_match /<label for="song_artist_attributes_producer_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_producer_attributes_name" name="song\[artist_attributes\]\[producer_attributes\]\[name\]" type="text" value="#{producer.name}" \/>/, output_buffer
-    assert_match /<label for="song_artist_attributes_producer_attributes_studio">Studio<\/label>/, output_buffer
-    assert_match /<input id="song_artist_attributes_producer_attributes_studio" name="song\[artist_attributes\]\[producer_attributes\]\[studio\]" type="text" value="#{producer.studio}" \/>/, output_buffer
-    assert_match /<input id="song_artist_attributes_producer_attributes_id" name="song\[artist_attributes\]\[producer_attributes\]\[id\]" type="hidden" value="#{producer.id}" \/>/, output_buffer
+    assert_match(/<label for="song_artist_attributes_producer_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_producer_attributes_name" name="song\[artist_attributes\]\[producer_attributes\]\[name\]" type="text" value="#{producer.name}" \/>/, output_buffer)
+    assert_match(/<label for="song_artist_attributes_producer_attributes_studio">Studio<\/label>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_producer_attributes_studio" name="song\[artist_attributes\]\[producer_attributes\]\[studio\]" type="text" value="#{producer.studio}" \/>/, output_buffer)
+    assert_match(/<input id="song_artist_attributes_producer_attributes_id" name="song\[artist_attributes\]\[producer_attributes\]\[id\]" type="hidden" value="#{producer.id}" \/>/, output_buffer)
 
-    assert_match /<input name="commit" type="submit" value="Update Song" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update Song" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a new instance of ConferenceFormFixture" do
@@ -422,29 +422,29 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/conferences"/, output_buffer
-    assert_match /class="new_conference"/, output_buffer
-    assert_match /id="new_conference"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/conferences"/, output_buffer)
+    assert_match(/class="new_conference"/, output_buffer)
+    assert_match(/id="new_conference"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="conference_name">Name<\/label>/, output_buffer
-    assert_match /<input id="conference_name" name="conference\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="conference_city">City<\/label>/, output_buffer
-    assert_match /<input id="conference_city" name="conference\[city\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="conference_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="conference_name" name="conference\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="conference_city">City<\/label>/, output_buffer)
+    assert_match(/<input id="conference_city" name="conference\[city\]" type="text" \/>/, output_buffer)
 
-    assert_match /<label for="conference_speaker_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="conference_speaker_attributes_name" name="conference\[speaker_attributes\]\[name\]" type="text" \/>/, output_buffer
-    assert_match /<label for="conference_speaker_attributes_occupation">Occupation<\/label>/, output_buffer
-    assert_match /<input id="conference_speaker_attributes_occupation" name="conference\[speaker_attributes\]\[occupation\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="conference_speaker_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="conference_speaker_attributes_name" name="conference\[speaker_attributes\]\[name\]" type="text" \/>/, output_buffer)
+    assert_match(/<label for="conference_speaker_attributes_occupation">Occupation<\/label>/, output_buffer)
+    assert_match(/<input id="conference_speaker_attributes_occupation" name="conference\[speaker_attributes\]\[occupation\]" type="text" \/>/, output_buffer)
 
     [0, 1].each do |i|
-      assert_match /<label for="conference_speaker_attributes_presentations_attributes_#{i}_topic">Topic<\/label>/, output_buffer
-      assert_match /<input id="conference_speaker_attributes_presentations_attributes_#{i}_topic" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[topic\]" type="text" \/>/, output_buffer
-      assert_match /<label for="conference_speaker_attributes_presentations_attributes_#{i}_duration">Duration<\/label>/, output_buffer
-      assert_match /<input id="conference_speaker_attributes_presentations_attributes_#{i}_duration" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[duration\]" type="text" \/>/, output_buffer
+      assert_match(/<label for="conference_speaker_attributes_presentations_attributes_#{i}_topic">Topic<\/label>/, output_buffer)
+      assert_match(/<input id="conference_speaker_attributes_presentations_attributes_#{i}_topic" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[topic\]" type="text" \/>/, output_buffer)
+      assert_match(/<label for="conference_speaker_attributes_presentations_attributes_#{i}_duration">Duration<\/label>/, output_buffer)
+      assert_match(/<input id="conference_speaker_attributes_presentations_attributes_#{i}_duration" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[duration\]" type="text" \/>/, output_buffer)
     end
 
-    assert_match /<input name="commit" type="submit" value="Create Conference" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Create Conference" \/>/, output_buffer)
   end
 
   test "form_for renders correct a existing instance of ConferenceFormFixture" do
@@ -481,30 +481,30 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = conference.id
 
-    assert_match /action="\/conferences\/#{id}"/, output_buffer
-    assert_match /class="edit_conference"/, output_buffer
-    assert_match /id="edit_conference_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/conferences\/#{id}"/, output_buffer)
+    assert_match(/class="edit_conference"/, output_buffer)
+    assert_match(/id="edit_conference_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="conference_name">Name<\/label>/, output_buffer
-    assert_match /<input id="conference_name" name="conference\[name\]" type="text" value="#{conference_form.name}" \/>/, output_buffer
-    assert_match /<label for="conference_city">City<\/label>/, output_buffer
-    assert_match /<input id="conference_city" name="conference\[city\]" type="text" value="#{conference_form.city}" \/>/, output_buffer
-    
-    assert_match /<label for="conference_speaker_attributes_name">Name<\/label>/, output_buffer
-    assert_match /<input id="conference_speaker_attributes_name" name="conference\[speaker_attributes\]\[name\]" type="text" value="#{speaker.name}" \/>/, output_buffer
-    assert_match /<label for="conference_speaker_attributes_occupation">Occupation<\/label>/, output_buffer
-    assert_match /<input id="conference_speaker_attributes_occupation" name="conference\[speaker_attributes\]\[occupation\]" type="text" value="#{speaker.occupation}" \/>/, output_buffer
-    assert_match /<input id="conference_speaker_attributes_id" name="conference\[speaker_attributes\]\[id\]" type="hidden" value="#{speaker.id}" \/>/, output_buffer
+    assert_match(/<label for="conference_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="conference_name" name="conference\[name\]" type="text" value="#{conference_form.name}" \/>/, output_buffer)
+    assert_match(/<label for="conference_city">City<\/label>/, output_buffer)
+    assert_match(/<input id="conference_city" name="conference\[city\]" type="text" value="#{conference_form.city}" \/>/, output_buffer)
+
+    assert_match(/<label for="conference_speaker_attributes_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="conference_speaker_attributes_name" name="conference\[speaker_attributes\]\[name\]" type="text" value="#{speaker.name}" \/>/, output_buffer)
+    assert_match(/<label for="conference_speaker_attributes_occupation">Occupation<\/label>/, output_buffer)
+    assert_match(/<input id="conference_speaker_attributes_occupation" name="conference\[speaker_attributes\]\[occupation\]" type="text" value="#{speaker.occupation}" \/>/, output_buffer)
+    assert_match(/<input id="conference_speaker_attributes_id" name="conference\[speaker_attributes\]\[id\]" type="hidden" value="#{speaker.id}" \/>/, output_buffer)
 
     [0, 1].each do |i|
-      assert_match /<label for="conference_speaker_attributes_presentations_attributes_#{i}_topic">Topic<\/label>/, output_buffer
-      assert_match /<input id="conference_speaker_attributes_presentations_attributes_#{i}_topic" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[topic\]" type="text" value="#{presentations[i].topic}" \/>/, output_buffer
-      assert_match /<label for="conference_speaker_attributes_presentations_attributes_#{i}_duration">Duration<\/label>/, output_buffer
-      assert_match /<input id="conference_speaker_attributes_presentations_attributes_#{i}_duration" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[duration\]" type="text" value="#{presentations[i].duration}" \/>/, output_buffer
+      assert_match(/<label for="conference_speaker_attributes_presentations_attributes_#{i}_topic">Topic<\/label>/, output_buffer)
+      assert_match(/<input id="conference_speaker_attributes_presentations_attributes_#{i}_topic" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[topic\]" type="text" value="#{presentations[i].topic}" \/>/, output_buffer)
+      assert_match(/<label for="conference_speaker_attributes_presentations_attributes_#{i}_duration">Duration<\/label>/, output_buffer)
+      assert_match(/<input id="conference_speaker_attributes_presentations_attributes_#{i}_duration" name="conference\[speaker_attributes\]\[presentations_attributes\]\[#{i}\]\[duration\]" type="text" value="#{presentations[i].duration}" \/>/, output_buffer)
     end
 
-    assert_match /<input name="commit" type="submit" value="Update Conference" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update Conference" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a new instance of SurveyFormFixture" do
@@ -529,23 +529,23 @@ class NestedModelRenderingTest < ActionView::TestCase
       concat f.submit
     end
 
-    assert_match /action="\/surveys"/, output_buffer
-    assert_match /class="new_survey"/, output_buffer
-    assert_match /id="new_survey"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/surveys"/, output_buffer)
+    assert_match(/class="new_survey"/, output_buffer)
+    assert_match(/id="new_survey"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="survey_name">Name<\/label>/, output_buffer
-    assert_match /<input id="survey_name" name="survey\[name\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="survey_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="survey_name" name="survey\[name\]" type="text" \/>/, output_buffer)
 
-    assert_match /<label for="survey_questions_attributes_0_content">Content<\/label>/, output_buffer
-    assert_match /<input id="survey_questions_attributes_0_content" name="survey\[questions_attributes\]\[0\]\[content\]" type="text" \/>/, output_buffer
+    assert_match(/<label for="survey_questions_attributes_0_content">Content<\/label>/, output_buffer)
+    assert_match(/<input id="survey_questions_attributes_0_content" name="survey\[questions_attributes\]\[0\]\[content\]" type="text" \/>/, output_buffer)
 
     [0, 1].each do |i|
-      assert_match /<label for="survey_questions_attributes_0_answers_attributes_#{i}_content">Content<\/label>/, output_buffer
-      assert_match /<input id="survey_questions_attributes_0_answers_attributes_#{i}_content" name="survey\[questions_attributes\]\[0\]\[answers_attributes\]\[#{i}\]\[content\]" type="text" \/>/, output_buffer
+      assert_match(/<label for="survey_questions_attributes_0_answers_attributes_#{i}_content">Content<\/label>/, output_buffer)
+      assert_match(/<input id="survey_questions_attributes_0_answers_attributes_#{i}_content" name="survey\[questions_attributes\]\[0\]\[answers_attributes\]\[#{i}\]\[content\]" type="text" \/>/, output_buffer)
     end
 
-    assert_match /<input name="commit" type="submit" value="Create Survey" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Create Survey" \/>/, output_buffer)
   end
 
   test "form_for renders correctly a existing instance of SurveyFormFixture" do
@@ -572,23 +572,23 @@ class NestedModelRenderingTest < ActionView::TestCase
 
     id = survey.id
 
-    assert_match /action="\/surveys\/#{id}"/, output_buffer
-    assert_match /class="edit_survey"/, output_buffer
-    assert_match /id="edit_survey_#{id}"/, output_buffer
-    assert_match /method="post"/, output_buffer
+    assert_match(/action="\/surveys\/#{id}"/, output_buffer)
+    assert_match(/class="edit_survey"/, output_buffer)
+    assert_match(/id="edit_survey_#{id}"/, output_buffer)
+    assert_match(/method="post"/, output_buffer)
 
-    assert_match /<label for="survey_name">Name<\/label>/, output_buffer
-    assert_match /<input id="survey_name" name="survey\[name\]" type="text" value="#{survey_form.name}" \/>/, output_buffer
-  
-    assert_match /<label for="survey_questions_attributes_0_content">Content<\/label>/, output_buffer
-    assert_match /<input id="survey_questions_attributes_0_content" name="survey\[questions_attributes\]\[0\]\[content\]" type="text" value="Which language allows closures\?" \/>/, output_buffer
-    assert_match /<input id="survey_questions_attributes_0_id" name="survey\[questions_attributes\]\[0\]\[id\]" type="hidden" value="#{questions[0].id}" \/>/, output_buffer
-  
+    assert_match(/<label for="survey_name">Name<\/label>/, output_buffer)
+    assert_match(/<input id="survey_name" name="survey\[name\]" type="text" value="#{survey_form.name}" \/>/, output_buffer)
+
+    assert_match(/<label for="survey_questions_attributes_0_content">Content<\/label>/, output_buffer)
+    assert_match(/<input id="survey_questions_attributes_0_content" name="survey\[questions_attributes\]\[0\]\[content\]" type="text" value="Which language allows closures\?" \/>/, output_buffer)
+    assert_match(/<input id="survey_questions_attributes_0_id" name="survey\[questions_attributes\]\[0\]\[id\]" type="hidden" value="#{questions[0].id}" \/>/, output_buffer)
+
     [0, 1].each do |i|
-      assert_match /<label for="survey_questions_attributes_0_answers_attributes_#{i}_content">Content<\/label>/, output_buffer
-      assert_match /<input id="survey_questions_attributes_0_answers_attributes_#{i}_content" name="survey\[questions_attributes\]\[0\]\[answers_attributes\]\[#{i}\]\[content\]" type="text" value="#{questions[0].answers[i].content}" \/>/, output_buffer
+      assert_match(/<label for="survey_questions_attributes_0_answers_attributes_#{i}_content">Content<\/label>/, output_buffer)
+      assert_match(/<input id="survey_questions_attributes_0_answers_attributes_#{i}_content" name="survey\[questions_attributes\]\[0\]\[answers_attributes\]\[#{i}\]\[content\]" type="text" value="#{questions[0].answers[i].content}" \/>/, output_buffer)
     end
 
-    assert_match /<input name="commit" type="submit" value="Update Survey" \/>/, output_buffer
+    assert_match(/<input name="commit" type="submit" value="Update Survey" \/>/, output_buffer)
   end
 end

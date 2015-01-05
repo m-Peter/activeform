@@ -1,7 +1,7 @@
 module ActiveForm
   class FormDefinition
     attr_accessor :assoc_name, :proc, :parent, :records
-    
+
     def initialize(assoc_name, block, options={})
       @assoc_name = assoc_name
       @proc = block
@@ -13,9 +13,7 @@ module ActiveForm
 
       case macro
       when :has_one, :belongs_to
-        form = Form.new(assoc_name, parent, proc)
-        form.instance_eval &proc
-        form
+        Form.new(assoc_name, parent, proc)
       when :has_many
         FormCollection.new(assoc_name, parent, proc, {records: records})
       end

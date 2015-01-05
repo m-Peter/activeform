@@ -1,7 +1,10 @@
-require "test_helper"
+require 'test_helper'
+require 'rails/generators/test_case'
+require 'rails/generators/form/form_install_generator'
 
-class InstallGeneratorTest < Rails::Generators::TestCase
-  tests ActiveForm::Generators::InstallGenerator
+class FormInstallGeneratorTest < Rails::Generators::TestCase
+  tests Rails::Generators::FormInstallGenerator
+
   destination File.expand_path("../../tmp", __FILE__)
   setup :prepare_destination
 

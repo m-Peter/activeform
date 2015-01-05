@@ -1,9 +1,9 @@
 require 'rails/generators'
 require 'rails/generators/base'
 
-module ActiveForm
+module Rails
   module Generators
-    class InstallGenerator < Rails::Generators::Base
+    class FormInstallGenerator < Rails::Generators::Base
 
       desc "Creates a forms directory into your app and test directories and includes the necessary JS file."
 
@@ -20,7 +20,7 @@ module ActiveForm
       end
 
       def include_js_file
-        insert_into_file "app/assets/javascripts/application.js", "//= require link_helpers", :before => "//= require_tree ."
+        insert_into_file "app/assets/javascripts/application.js", "//= require active_form", :before => "//= require_tree ."
       end
     end
   end
