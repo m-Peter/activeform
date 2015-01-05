@@ -1,5 +1,3 @@
-require 'set'
-
 module ActiveForm
   class Base
     include ActiveModel::Model
@@ -9,14 +7,11 @@ module ActiveForm
     after_save :update_form_models
 
     delegate :persisted?, :to_model, :to_key, :to_param, :to_partial_path, to: :model
-    attr_reader :model, :forms, :permitted_attributes
+    attr_reader :model, :forms
 
     def initialize(model)
       @model = model
       @forms = []
-      @permitted_attributes = Set.new(attrs)
-      @permitted_attributes.add(:id)
-      @permitted_attributes.add(:_destroy)
       populate_forms
     end
 
@@ -25,9 +20,7 @@ module ActiveForm
         if nested_params?(value)
           fill_association_with_attributes(key, value)
         else
-          if @permitted_attributes.include?(key.to_sym)
-            send("#{key}=", value)
-          end
+          send("#{key}=", value)
         end
       end
     end
@@ -62,8 +55,6 @@ module ActiveForm
     class << self
       attr_accessor :main_class
       attr_writer :main_model
-      attr_reader :listed_attrs
-
       delegate :reflect_on_association, to: :main_class
 
       def attributes(*names)
@@ -76,21 +67,6 @@ module ActiveForm
         names.each do |attribute|
           delegate attribute, "#{attribute}=", to: :model
         end
-        if listed_attrs.empty?
-          @listed_attrs = names
-        else
-          @listed_attrs += names
-        end
-        
-        class_eval %Q{
-          def attrs
-            @attrs = #{listed_attrs}
-          end
-        }
-      end
-
-      def listed_attrs
-        @listed_attrs ||= []
       end
 
       def main_class
